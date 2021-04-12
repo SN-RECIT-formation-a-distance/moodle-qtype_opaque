@@ -66,10 +66,10 @@ class qtype_opaque_connection {
             $class = 'qtype_opaque_soap_client_with_timeout';
         }
 
-        $this->soapclient = new $class(__DIR__ . '/opaque.wsdl', array(
-                    'location'           => $url,
+        $this->soapclient = new $class($url, array(
+                    //'location'           => $url,
                     'soap_version'       => SOAP_1_1,
-                    'cache_wsdl'         => WSDL_CACHE_NONE,
+                    //'cache_wsdl'         => WSDL_CACHE_NONE,
                     'exceptions'         => true,
                     'connection_timeout' => $engine->timeout,
                     'features'           => SOAP_SINGLE_ELEMENT_ARRAYS,
@@ -173,7 +173,7 @@ class qtype_opaque_soap_client_with_timeout extends SoapClient {
         if ($action) {
             $headers[] = 'SOAPAction: ' . $action;
         } else {
-            $headers[] = 'SOAPAction: none'; // Seemingly, this is necessary.
+            //$headers[] = 'SOAPAction: none'; // Seemingly, this is necessary.
         }
 
         $curl = curl_init($location);

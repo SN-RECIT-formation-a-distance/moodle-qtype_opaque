@@ -28,7 +28,7 @@ $plugin->version   = 2019110900;
 $plugin->requires  = 2017111300;
 $plugin->component = 'qtype_opaque';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '2.8 For Moodle 3.4+';
+$plugin->release   = 'R13-V1.13.1';
 
 $plugin->dependencies = array(
     'qbehaviour_opaque' => 2018081400,

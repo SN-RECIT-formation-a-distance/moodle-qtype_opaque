@@ -81,6 +81,7 @@ class qtype_opaque extends question_type {
         if ($this->jsready) {
             $this->jsready = false;
             $PAGE->requires->js_call_amd('qtype_opaque/changefocus', 'init');
+            $PAGE->requires->js_call_amd('qtype_opaque/init_mathjax', 'init');
         }
     }
 

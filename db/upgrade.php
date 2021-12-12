@@ -87,5 +87,43 @@ function xmldb_qtype_opaque_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2011102402, 'qtype', 'opaque');
     }
 
+    if ($oldversion < 2021111706) {
+
+        // Define table question_opaque to be renamed to qtype_opaque.
+        $table = new xmldb_table('qtype_opaque_options');
+        $field1 = new xmldb_field('showhintafter', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'remoteversion');
+        $field2 = new xmldb_field('showsolutionafter', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showhintafter');
+
+        // Conditionally launch add field showhintafter and showsolutionafter.
+        if (!$dbman->field_exists($table, $field1)) {
+            $dbman->add_field($table, $field1);
+        }
+        if (!$dbman->field_exists($table, $field2)) {
+            $dbman->add_field($table, $field2);
+        }
+
+        // Qtype opaque savepoint reached.
+        upgrade_plugin_savepoint(true, 2021111706, 'qtype', 'opaque');
+    }
+    
+    if ($oldversion < 2021111709) {
+
+        // Define table question_opaque to be renamed to qtype_opaque.
+        $table = new xmldb_table('qtype_opaque_options');
+        $field1 = new xmldb_field('showsolutionaftertest', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showsolutionafter');
+        $field2 = new xmldb_field('exammode', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showsolutionaftertest');
+
+        // Conditionally launch add field showsolutionaftertest and exammode.
+        if (!$dbman->field_exists($table, $field1)) {
+            $dbman->add_field($table, $field1);
+        }
+        if (!$dbman->field_exists($table, $field2)) {
+            $dbman->add_field($table, $field2);
+        }
+
+        // Qtype opaque savepoint reached.
+        upgrade_plugin_savepoint(true, 2021111709, 'qtype', 'opaque');
+    }
+
     return true;
 }

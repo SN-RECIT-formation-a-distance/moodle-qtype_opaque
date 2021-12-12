@@ -25,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/question/behaviour/opaque/opaquestate.php');
+
 
 /**
  * Generates the output for Opaque questions.
@@ -33,4 +35,29 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_opaque_renderer extends qtype_renderer {
+	
+	protected function general_feedback(question_attempt $qa) {
+		$opaquestate = new qbehaviour_opaque_state($qa, null);
+
+		if (!empty($opaquestate->get_correctanstable())){
+			$table = $opaquestate->get_correctanstable();
+			return $table;
+		}
+
+		if (!empty($opaquestate->get_solfeedback())){
+			$sol = $opaquestate->get_solfeedback();
+		    $doc = new DOMDocument();
+			$doc->loadHTML($sol);
+			$xpath = new DOMXPath($doc);
+			$tags = $xpath->query('.//a');
+			$result = "";
+			foreach($tags as $node) {
+				$domDocument = new DOMDocument();
+				$b = $domDocument->importNode($node->cloneNode(true), true);
+				$domDocument->appendChild($b);
+				$result .= $domDocument->saveHtml();
+			}
+			return $result;
+		}
+    }
 }

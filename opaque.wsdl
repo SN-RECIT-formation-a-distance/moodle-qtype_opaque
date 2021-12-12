@@ -67,6 +67,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="scores" nillable="true" type="impl:ArrayOfScore"/>
     </sequence>
    </complexType>
+   <complexType name="ResultsTMP">
+    <sequence>
+     <element name="actionSummary" nillable="true" type="soapenc:string"/>
+     <element name="answerLine" nillable="true" type="soapenc:string"/>
+     <element name="attempts" type="xsd:int"/>
+     <element name="customResults" nillable="true" type="impl:ArrayOfCustomResult"/>
+     <element name="questionLine" nillable="true" type="soapenc:string"/>
+     <element maxOccurs="unbounded" name="score" type="xsd:int"/>
+     <element name="scores" nillable="true" type="impl:ArrayOfScore"/>
+    </sequence>
+   </complexType>
    <complexType name="ProcessReturn">
     <sequence>
      <element name="CSS" nillable="true" type="soapenc:string"/>
@@ -75,6 +86,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="questionEnd" type="xsd:boolean"/>
      <element name="resources" nillable="true" type="impl:ArrayOfResource"/>
      <element name="results" nillable="true" type="impl:Results"/>
+     <element name="resultstmp" nillable="true" type="impl:ResultsTMP"/>
+     <element name="solfeedback" nillable="true" type="soapenc:string"/>
     </sequence>
    </complexType>
    <complexType name="StartReturn">
@@ -94,6 +107,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <wsdl:part name="questionID" type="soapenc:string"/>
 
       <wsdl:part name="questionVersion" type="soapenc:string"/>
+
+      <wsdl:part name="questionHint" type="soapenc:xsd:int"/>
+
+      <wsdl:part name="questionSolution" type="xsd:int"/>
+
+      <wsdl:part name="endingquestionSolution" type="xsd:int"/>
+
+      <wsdl:part name="modeExam" type="xsd:int"/>
 
       <wsdl:part name="questionBaseURL" type="soapenc:string"/>
 
@@ -165,13 +186,21 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:part name="questionVersion" type="soapenc:string"/>
 
+      <wsdl:part name="questionHint" type="xsd:int"/>
+
+      <wsdl:part name="questionSolution" type="xsd:int"/>
+
+      <wsdl:part name="endingquestionSolution" type="xsd:int"/>
+
+      <wsdl:part name="modeExam" type="xsd:int"/>
+
       <wsdl:part name="questionBaseURL" type="soapenc:string"/>
 
    </wsdl:message>
 
    <wsdl:portType name="OmService">
 
-      <wsdl:operation name="getQuestionMetadata" parameterOrder="questionID questionVersion questionBaseURL">
+      <wsdl:operation name="getQuestionMetadata" parameterOrder="questionID questionVersion questionHint questionSolution endingquestionSolution modeExam questionBaseURL">
 
          <wsdl:input message="impl:getQuestionMetadataRequest" name="getQuestionMetadataRequest"/>
 
@@ -199,7 +228,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="start" parameterOrder="questionID questionVersion questionBaseURL initialParamNames initialParamValues cachedResources">
+      <wsdl:operation name="start" parameterOrder="questionID questionVersion questionHint questionSolution endingquestionSolution modeExam questionBaseURL initialParamNames initialParamValues cachedResources">
 
          <wsdl:input message="impl:startRequest" name="startRequest"/>
 

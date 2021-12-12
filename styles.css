@@ -31,11 +31,17 @@
 }
 .que.opaque input[type="text"] {
     padding: 2px;
-    height: 22px;
-    border-radius: 0;
+    height: 28px;
 }
+.alert-danger {
+    color: #000000;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
 
 /* Prevent firefox on window is not showing outline when using .focus(). */
 body.gecko .que.opaque input.questionflagimage:focus {
     outline: 1px dotted;
 }
+

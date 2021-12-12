@@ -39,6 +39,14 @@ class qtype_opaque_question extends question_with_responses {
     public $remoteid;
     /** @var string the version number of this question to use. */
     public $remoteversion;
+    /** @var integer if we show hint after a number of attempt. */
+    public $showhintafter;
+    /** @var interger if we show solution after a number of attempt. */
+    public $showsolutionafter;
+    /** @var interger if we show solution after test is finished. */
+    public $showsolutionaftertest;
+    /** @var interger if we use exam mode. */
+    public $exammode;
 
     public function make_behaviour(question_attempt $qa, $preferredbehaviour) {
         return question_engine::make_behaviour('opaque', $qa, $preferredbehaviour);

@@ -170,6 +170,10 @@ class qtype_opaque_test extends question_testcase {
         $expectedq->remoteid = 'example.question';
         $expectedq->remoteversion = '1.0';
         $expectedq->engineid = 123;
+        $expectedq->showhintafter = 0;
+        $expectedq->showsolutionafter = 0;
+        $expectedq->showsolutionaftertest = 0;
+        $expectedq->exammode = 0;
 
         $this->assert(new question_check_specified_fields_expectation($expectedq), $q);
     }
@@ -238,6 +242,10 @@ class qtype_opaque_test extends question_testcase {
         $expectedq->remoteid = 'example.question';
         $expectedq->remoteversion = '1.0';
         $expectedq->engineid = 0;
+        $expectedq->showhintafter = 0;
+        $expectedq->showsolutionafter = 0;
+        $expectedq->showsolutionaftertest = 0;
+        $expectedq->exammode = 0;
 
         $this->assert(new question_check_specified_fields_expectation($expectedq), $q);
         $this->assertTrue($manager->is_same(

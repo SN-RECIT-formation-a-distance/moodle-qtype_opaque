@@ -112,14 +112,18 @@ class qtype_opaque_connection {
 
     /**
      * @param string $remoteid identifies the question.
-     * @param string $remoteversion identifies the specific version of the quetsion.
+     * @param string $remoteversion identifies the specific version of the question.
+     * @param int $showhintafter identifies if we add hint in the question.
+     * @param int $showsolutionafter identifies if we add solution in the question.
+     * @param int $showsolutionaftertest identifies if we add solution when test is finished.
+     * @param int $exammode identifies if we want this to be an exam question (no correction shown).
      * @return The question metadata, as an xmlised array, so, for example,
      *      $metadata[questionmetadata][@][#][scoring][0][#][marks][0][#] is the
      *      maximum possible score for this question.
      */
-    public function get_question_metadata($remoteid, $remoteversion) {
+    public function get_question_metadata($remoteid, $remoteversion, $showhintafter, $showsolutionafter, $showsolutionaftertest, $exammode) {
         $getmetadataresult = $this->soapclient->getQuestionMetadata(
-                $remoteid, $remoteversion, $this->question_base_url());
+                $remoteid, $remoteversion, $showhintafter, $showsolutionafter, $showsolutionaftertest, $exammode, $this->question_base_url());
         return xmlize($getmetadataresult);
     }
 }

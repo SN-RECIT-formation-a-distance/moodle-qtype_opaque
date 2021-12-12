@@ -1,5 +1,11 @@
 # Change log for the The Opaque question type
 
+## Changes in R13-V1.13.2
+
+* Added french canadien language to lang files
+* Edited opaque form to add num of attempt before showing hint, num of attempt before showing solution and/or locking problem, 
+* select for showing solution as feedback afer test and select for putting question in exam mode (no correct ans in attempt table).
+* Modification to style to adjust rendering of question
 
 ## Changes in 2.8
 

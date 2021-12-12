@@ -60,6 +60,10 @@ class qtype_opaque_test_helper {
         $q->engineid = $engineid;
         $q->remoteid = 'samples.mu120.module5.question01';
         $q->remoteversion = '1.8';
+        $q->showhintafter = 0;
+        $q->showsolutionafter = 0;
+        $q->showsolutionaftertest = 0;
+        $q->exammode = 0;
 
         return $q;
     }

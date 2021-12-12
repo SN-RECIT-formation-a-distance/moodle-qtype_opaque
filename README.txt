@@ -41,3 +41,9 @@ To be able to run all the unit tests, you need a working OpenMark install, then 
     define('QTYPE_OPAQUE_TEST_ENGINE_TIMEOUT', '5');
 to your config.php file. Of these, only the first is required. The remaining
 ones are optional. Specify them if your set-up needs them.
+
+To view Hint and Solution in WeBWorK opaque problem add to questiontype.php at line 87
+
+            $PAGE->requires->js_call_amd('qtype_opaque/knowl'); 
+            $PAGE->requires->js_call_amd('qtype_opaque/Base64');
+            $PAGE->requires->js_call_amd('qtype_opaque/underscore');

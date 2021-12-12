@@ -24,6 +24,10 @@
     <hidden>0</hidden>
     <remoteid>omdemo.text.q01</remoteid>
     <remoteversion>1.2</remoteversion>
+    <showhintafter>0</showhintafter>
+    <showsolutionafter>0</showsolutionafter>
+    <showsolutionaftertest>0</showsolutionaftertest>
+    <exammode>0</exammode>
     <engine>
       <name>
         <text>Test OpenMark engine</text>

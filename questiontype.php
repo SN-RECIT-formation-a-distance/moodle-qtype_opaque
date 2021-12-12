@@ -61,7 +61,7 @@ class qtype_opaque extends question_type {
     }
 
     public function extra_question_fields() {
-        return array('qtype_opaque_options', 'engineid', 'remoteid', 'remoteversion');
+        return array('qtype_opaque_options', 'engineid', 'remoteid', 'remoteversion', 'showhintafter', 'showsolutionafter', 'showsolutionaftertest', 'exammode'); 
     }
 
     public function save_question($question, $form) {
@@ -78,10 +78,17 @@ class qtype_opaque extends question_type {
         $question->engineid = $questiondata->options->engineid;
         $question->remoteid = $questiondata->options->remoteid;
         $question->remoteversion = $questiondata->options->remoteversion;
+        $question->showhintafter = $questiondata->options->showhintafter;
+        $question->showsolutionafter = $questiondata->options->showsolutionafter;
+        $question->showsolutionaftertest = $questiondata->options->showsolutionaftertest;
+        $question->exammode = $questiondata->options->exammode;
         if ($this->jsready) {
             $this->jsready = false;
             $PAGE->requires->js_call_amd('qtype_opaque/changefocus', 'init');
             $PAGE->requires->js_call_amd('qtype_opaque/init_mathjax', 'init');
+            $PAGE->requires->js_call_amd('qtype_opaque/knowl'); 
+            $PAGE->requires->js_call_amd('qtype_opaque/Base64');
+            $PAGE->requires->js_call_amd('qtype_opaque/underscore');
         }
     }
 
@@ -93,6 +100,10 @@ class qtype_opaque extends question_type {
         $expout = '';
         $expout .= '    <remoteid>' . $question->options->remoteid . "</remoteid>\n";
         $expout .= '    <remoteversion>' . $question->options->remoteversion . "</remoteversion>\n";
+        $expout .= '    <showhintafter>' . $question->options->showhintafter . "</showhintafter>\n";
+        $expout .= '    <showsolutionafter>' . $question->options->showsolutionafter . "</showsolutionafter>\n";
+        $expout .= '    <showsolutionaftertest>' . $question->options->showsolutionaftertest . "</showsolutionaftertest>\n";
+        $expout .= '    <exammode>' . $question->options->exammode . "</exammode>\n"; 
         $expout .= "    <engine>\n";
         $engine = $this->enginemanager->load($question->options->engineid);
         $expout .= "      <name>\n" . $format->writetext($engine->name, 4) . "      </name>\n";
@@ -117,9 +128,17 @@ class qtype_opaque extends question_type {
         $question = $format->import_headers($data);
         $question->qtype = 'opaque';
         $question->remoteid = $format->getpath($data, array('#', 'remoteid', 0, '#'),
-                '', false, get_string('missingremoteidinimport', 'qtype_opaque'));
+                '', false, get_string('missingremoteidinimport', 'qtype_opaque')); 
         $question->remoteversion = $format->getpath($data, array('#', 'remoteversion', 0, '#'),
                 '', false, get_string('missingremoteversioninimport', 'qtype_opaque'));
+        $question->showhintafter = $format->getpath($data, array('#', 'showhintafter', 0, '#'),
+                '', false, get_string('missingshowhintafterinimport', 'qtype_opaque'));
+        $question->showsolutionafter = $format->getpath($data, array('#', 'showsolutionafter', 0, '#'),
+                '', false, get_string('missingshowsolutionafterinimport', 'qtype_opaque'));
+        $question->showsolutionaftertest = $format->getpath($data, array('#', 'showsolutionaftertest', 0, '#'),
+                '', false, get_string('missingshowsolutionaftertestinimport', 'qtype_opaque'));
+        $question->exammode = $format->getpath($data, array('#', 'exammode', 0, '#'),
+                '', false, get_string('missingexammodeinimport', 'qtype_opaque')); 
 
         // Engine bit.
         $strerror = get_string('missingenginedetailsinimport', 'qtype_opaque');

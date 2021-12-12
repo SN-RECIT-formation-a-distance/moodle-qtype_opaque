@@ -42,7 +42,7 @@ class qtype_opaque_edit_form extends question_edit_form {
         parent::definition();
         $mform = $this->_form;
         $mform->removeElement('questiontext');
-/*        $mform->removeElement('generalfeedback'); */
+        $mform->removeElement('generalfeedback'); 
         $mform->removeElement('defaultmark');
         $mform->addElement('hidden', 'defaultmark');
         $mform->setType('defaultmark', PARAM_FLOAT);
@@ -62,10 +62,38 @@ class qtype_opaque_edit_form extends question_edit_form {
         $mform->addRule('remoteid', null, 'required', null, 'client');
         $mform->addHelpButton('remoteid', 'questionid', 'qtype_opaque');
 
+
         $mform->addElement('text', 'remoteversion',
                 get_string('questionversion', 'qtype_opaque'), array('size' => 3));
         $mform->setType('remoteversion', PARAM_RAW);
+        $mform->setDefault('remoteversion', '1.0');
         $mform->addRule('remoteversion', null, 'required', null, 'client');
+
+        $mform->addElement('text', 'showhintafter',
+                get_string('questionhint', 'qtype_opaque'), array('size' => 4));
+        $mform->setType('showhintafter', PARAM_INT);
+        $mform->setDefault('showhintafter', 0);
+        $mform->addRule('showhintafter', null, 'required', null, 'client');
+        $mform->addHelpButton('showhintafter', 'questionhint', 'qtype_opaque');
+
+
+        $mform->addElement('text', 'showsolutionafter',
+                get_string('questionsolution', 'qtype_opaque'), 'size="4"');
+        $mform->setType('showsolutionafter', PARAM_INT);
+        $mform->setDefault('showsolutionafter', 0);
+        $mform->addRule('showsolutionafter', null, 'required', null, 'client');
+        $mform->addHelpButton('showsolutionafter', 'questionsolution', 'qtype_opaque');
+		
+		$mform->addElement('select', 'showsolutionaftertest', get_string('endingquestionsolution', 'qtype_opaque'), array(1=>'oui',0=>'non'));
+		$mform->setDefault('showsolutionaftertest', 0);
+		$mform->addRule('showsolutionaftertest', null, 'required', null, 'client');
+        $mform->addHelpButton('showsolutionaftertest', 'endingquestionsolution', 'qtype_opaque');
+		
+		$mform->addElement('select', 'exammode', get_string('modeexam', 'qtype_opaque'), array(1=>'oui',0=>'non'));
+		$mform->setDefault('exammode', 0);
+		$mform->addRule('exammode', null, 'required', null, 'client');
+        $mform->addHelpButton('exammode', 'modeexam', 'qtype_opaque');
+
     }
 
     public function validation($data, $files) {
@@ -84,17 +112,36 @@ class qtype_opaque_edit_form extends question_edit_form {
             $errors['remoteid'] = get_string('invalidquestionidsyntax', 'qtype_opaque');
             $remoteidok = false;
         }
+        
         if (!preg_match('/^\d+\.\d+$/', $data['remoteversion'])) {
             $errors['remoteversion'] = get_string('invalidquestionversionsyntax', 'qtype_opaque');
             $remoteidok = false;
         }
+
+        if (!preg_match('/^\d+$/', $data['showhintafter'])) {
+            $errors['showhintafter'] = get_string('invalidquestionhintsyntax', 'qtype_opaque');
+            $remoteidok = false;
+        }
+        if (!preg_match('/^\d+$/', $data['showsolutionafter'])) {
+            $errors['showsolutionafter'] = get_string('invalidquestionsolutionsyntax', 'qtype_opaque');
+            $remoteidok = false;
+        }
+        if (!preg_match('/^\d+$/', $data['showsolutionaftertest'])) {
+            $errors['showsolutionaftertest'] = get_string('invalidendingquestionsolutionsyntax', 'qtype_opaque');
+            $remoteidok = false;
+        }
+        if (!preg_match('/^\d+$/', $data['exammode'])) {
+            $errors['exammode'] = get_string('invalidmodeexamsyntax', 'qtype_opaque');
+            $remoteidok = false;
+        } 
 
         // Try connecting to the remote question engine both as extra validation of the id, and
         // also to get the default grade.
         if ($remoteidok) {
             try {
                 $metadata = $enginemanager->get_connection($engine)->get_question_metadata(
-                        $data['remoteid'], $data['remoteversion']);
+                        $data['remoteid'], $data['remoteversion'], $data['showhintafter'], $data['showsolutionafter'],
+                        $data['showsolutionaftertest'], $data['exammode']);
                 if (isset($metadata['questionmetadata']['#']['scoring'][0]['#']['marks'][0]['#'])) {
                     $this->_defaultmark = $metadata['questionmetadata']['#']['scoring']
                             [0]['#']['marks'][0]['#'];

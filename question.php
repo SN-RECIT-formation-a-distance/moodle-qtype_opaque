@@ -45,6 +45,8 @@ class qtype_opaque_question extends question_with_responses {
     public $showsolutionafter;
     /** @var interger if we show solution after test is finished. */
     public $showsolutionaftertest;
+    /** @var interger Num of attempt before read only. */
+    public $numattemptlock;
     /** @var interger if we use exam mode. */
     public $exammode;
 

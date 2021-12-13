@@ -61,7 +61,7 @@ class qtype_opaque extends question_type {
     }
 
     public function extra_question_fields() {
-        return array('qtype_opaque_options', 'engineid', 'remoteid', 'remoteversion', 'showhintafter', 'showsolutionafter', 'showsolutionaftertest', 'exammode'); 
+        return array('qtype_opaque_options', 'engineid', 'remoteid', 'remoteversion', 'showhintafter', 'showsolutionafter', 'showsolutionaftertest', 'numattemptlock', 'exammode'); 
     }
 
     public function save_question($question, $form) {
@@ -81,6 +81,7 @@ class qtype_opaque extends question_type {
         $question->showhintafter = $questiondata->options->showhintafter;
         $question->showsolutionafter = $questiondata->options->showsolutionafter;
         $question->showsolutionaftertest = $questiondata->options->showsolutionaftertest;
+        $question->numattemptlock = $questiondata->options->numattemptlock;
         $question->exammode = $questiondata->options->exammode;
         if ($this->jsready) {
             $this->jsready = false;
@@ -103,6 +104,7 @@ class qtype_opaque extends question_type {
         $expout .= '    <showhintafter>' . $question->options->showhintafter . "</showhintafter>\n";
         $expout .= '    <showsolutionafter>' . $question->options->showsolutionafter . "</showsolutionafter>\n";
         $expout .= '    <showsolutionaftertest>' . $question->options->showsolutionaftertest . "</showsolutionaftertest>\n";
+        $expout .= '    <numattemptlock>' . $question->options->numattemptlock . "</numattemptlock>\n";
         $expout .= '    <exammode>' . $question->options->exammode . "</exammode>\n"; 
         $expout .= "    <engine>\n";
         $engine = $this->enginemanager->load($question->options->engineid);
@@ -137,6 +139,8 @@ class qtype_opaque extends question_type {
                 '', false, get_string('missingshowsolutionafterinimport', 'qtype_opaque'));
         $question->showsolutionaftertest = $format->getpath($data, array('#', 'showsolutionaftertest', 0, '#'),
                 '', false, get_string('missingshowsolutionaftertestinimport', 'qtype_opaque'));
+        $question->numattemptlock = $format->getpath($data, array('#', 'numattemptlock', 0, '#'),
+                '', false, get_string('missingnumattemptlockinimport', 'qtype_opaque'));
         $question->exammode = $format->getpath($data, array('#', 'exammode', 0, '#'),
                 '', false, get_string('missingexammodeinimport', 'qtype_opaque')); 
 

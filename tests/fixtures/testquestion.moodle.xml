@@ -27,6 +27,7 @@
     <showhintafter>0</showhintafter>
     <showsolutionafter>0</showsolutionafter>
     <showsolutionaftertest>0</showsolutionaftertest>
+    <numattemptlock>0</numattemptlock>
     <exammode>0</exammode>
     <engine>
       <name>

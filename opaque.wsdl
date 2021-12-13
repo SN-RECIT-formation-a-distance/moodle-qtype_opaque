@@ -114,6 +114,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:part name="endingquestionSolution" type="xsd:int"/>
 
+      <wsdl:part name="maxnumAttempt" type="xsd:int"/>
+
       <wsdl:part name="modeExam" type="xsd:int"/>
 
       <wsdl:part name="questionBaseURL" type="soapenc:string"/>
@@ -192,6 +194,8 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:part name="endingquestionSolution" type="xsd:int"/>
 
+      <wsdl:part name="maxnumAttempt" type="xsd:int"/>
+
       <wsdl:part name="modeExam" type="xsd:int"/>
 
       <wsdl:part name="questionBaseURL" type="soapenc:string"/>
@@ -200,7 +204,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:portType name="OmService">
 
-      <wsdl:operation name="getQuestionMetadata" parameterOrder="questionID questionVersion questionHint questionSolution endingquestionSolution modeExam questionBaseURL">
+      <wsdl:operation name="getQuestionMetadata" parameterOrder="questionID questionVersion questionHint questionSolution endingquestionSolution maxnumAttempt modeExam questionBaseURL">
 
          <wsdl:input message="impl:getQuestionMetadataRequest" name="getQuestionMetadataRequest"/>
 
@@ -228,7 +232,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="start" parameterOrder="questionID questionVersion questionHint questionSolution endingquestionSolution modeExam questionBaseURL initialParamNames initialParamValues cachedResources">
+      <wsdl:operation name="start" parameterOrder="questionID questionVersion questionHint questionSolution endingquestionSolution maxnumAttempt modeExam questionBaseURL initialParamNames initialParamValues cachedResources">
 
          <wsdl:input message="impl:startRequest" name="startRequest"/>
 

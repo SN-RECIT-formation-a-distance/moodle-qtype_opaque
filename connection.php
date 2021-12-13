@@ -116,14 +116,15 @@ class qtype_opaque_connection {
      * @param int $showhintafter identifies if we add hint in the question.
      * @param int $showsolutionafter identifies if we add solution in the question.
      * @param int $showsolutionaftertest identifies if we add solution when test is finished.
+     * @param int $numattemptlock identifies the num of attempt before readonly.
      * @param int $exammode identifies if we want this to be an exam question (no correction shown).
      * @return The question metadata, as an xmlised array, so, for example,
      *      $metadata[questionmetadata][@][#][scoring][0][#][marks][0][#] is the
      *      maximum possible score for this question.
      */
-    public function get_question_metadata($remoteid, $remoteversion, $showhintafter, $showsolutionafter, $showsolutionaftertest, $exammode) {
+    public function get_question_metadata($remoteid, $remoteversion, $showhintafter, $showsolutionafter,  $showsolutionaftertest, $numattemptlock, $exammode) {
         $getmetadataresult = $this->soapclient->getQuestionMetadata(
-                $remoteid, $remoteversion, $showhintafter, $showsolutionafter, $showsolutionaftertest, $exammode, $this->question_base_url());
+                $remoteid, $remoteversion, $showhintafter, $showsolutionafter, $showsolutionaftertest, $numattemptlock, $exammode, $this->question_base_url());
         return xmlize($getmetadataresult);
     }
 }

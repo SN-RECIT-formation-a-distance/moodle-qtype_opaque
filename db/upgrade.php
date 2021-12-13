@@ -125,5 +125,20 @@ function xmldb_qtype_opaque_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2021111709, 'qtype', 'opaque');
     }
 
+    if ($oldversion < 2021111710) {
+
+        // Define table question_opaque to be renamed to qtype_opaque.
+        $table = new xmldb_table('qtype_opaque_options');
+        $field1 = new xmldb_field('numattemptlock', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showsolutionaftertest');
+
+        // Conditionally launch add field numattemptlock.
+        if (!$dbman->field_exists($table, $field1)) {
+            $dbman->add_field($table, $field1);
+		}
+
+        // Qtype opaque savepoint reached.
+        upgrade_plugin_savepoint(true, 2021111710, 'qtype', 'opaque');
+    }
+
     return true;
 }

@@ -63,6 +63,7 @@ class qtype_opaque_test_helper {
         $q->showhintafter = 0;
         $q->showsolutionafter = 0;
         $q->showsolutionaftertest = 0;
+        $q->numattemptlock = 0;
         $q->exammode = 0;
 
         return $q;

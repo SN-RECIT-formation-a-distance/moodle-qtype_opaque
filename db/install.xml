@@ -35,9 +35,10 @@
         <FIELD NAME="remoteid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="The id of this question - meaningful to the remote engine." PREVIOUS="engineid" NEXT="remoteversion"/>
         <FIELD NAME="remoteversion" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" COMMENT="The version of this question - meaningful to the remote engine." PREVIOUS="remoteid" NEXT="showhintafter"/>
         <FIELD NAME="showhintafter" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="Num of attempt before showing hint." PREVIOUS="remoteversion" NEXT="showsolutionafter"/>
-		<FIELD NAME="showsolutionafter" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="Num of attempt before showing solution." PREVIOUS="showhintafter" NEXT="showsolutionaftertest"/>
-        <FIELD NAME="showsolutionaftertest" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="if we show solution after test is finished." PREVIOUS="showsolutionafter" NEXT="exammode"/>
-        <FIELD NAME="exammode" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="if question is in exam mode." PREVIOUS="showsolutionaftertest"/>
+		    <FIELD NAME="showsolutionafter" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="Num of attempt before showing solution." PREVIOUS="showhintafter" NEXT="showsolutionaftertest"/>
+        <FIELD NAME="showsolutionaftertest" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="if we show solution after test is finished." PREVIOUS="showsolutionafter" NEXT="numattemptlock"/>
+        <FIELD NAME="numattemptlock" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="Num of attempt before read only." PREVIOUS="showsolutionaftertest" NEXT="exammode"/>
+        <FIELD NAME="exammode" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" COMMENT="if question is in exam mode." PREVIOUS="numattemptlock"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="primary key of the table, please edit me" NEXT="quesopaq_eng_fk"/>

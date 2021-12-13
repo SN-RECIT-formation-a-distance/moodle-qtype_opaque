@@ -88,6 +88,13 @@ class qtype_opaque_edit_form extends question_edit_form {
 		$mform->setDefault('showsolutionaftertest', 0);
 		$mform->addRule('showsolutionaftertest', null, 'required', null, 'client');
         $mform->addHelpButton('showsolutionaftertest', 'endingquestionsolution', 'qtype_opaque');
+        
+        $mform->addElement('text', 'numattemptlock',
+                get_string('maxnumattempt', 'qtype_opaque'), 'size="4"');
+        $mform->setType('numattemptlock', PARAM_INT);
+        $mform->setDefault('numattemptlock', 0);
+        $mform->addRule('numattemptlock', null, 'required', null, 'client');
+        $mform->addHelpButton('numattemptlock', 'maxnumattempt', 'qtype_opaque');
 		
 		$mform->addElement('select', 'exammode', get_string('modeexam', 'qtype_opaque'), array(1=>'oui',0=>'non'));
 		$mform->setDefault('exammode', 0);
@@ -130,6 +137,10 @@ class qtype_opaque_edit_form extends question_edit_form {
             $errors['showsolutionaftertest'] = get_string('invalidendingquestionsolutionsyntax', 'qtype_opaque');
             $remoteidok = false;
         }
+        if (!preg_match('/^\d+$/', $data['numattemptlock'])) {
+            $errors['numattemptlock'] = get_string('invalidmaxnumattemptsyntax', 'qtype_opaque');
+            $remoteidok = false;
+        }
         if (!preg_match('/^\d+$/', $data['exammode'])) {
             $errors['exammode'] = get_string('invalidmodeexamsyntax', 'qtype_opaque');
             $remoteidok = false;
@@ -141,7 +152,7 @@ class qtype_opaque_edit_form extends question_edit_form {
             try {
                 $metadata = $enginemanager->get_connection($engine)->get_question_metadata(
                         $data['remoteid'], $data['remoteversion'], $data['showhintafter'], $data['showsolutionafter'],
-                        $data['showsolutionaftertest'], $data['exammode']);
+                        $data['showsolutionaftertest'], $data['numattemptlock'], $data['exammode']);
                 if (isset($metadata['questionmetadata']['#']['scoring'][0]['#']['marks'][0]['#'])) {
                     $this->_defaultmark = $metadata['questionmetadata']['#']['scoring']
                             [0]['#']['marks'][0]['#'];

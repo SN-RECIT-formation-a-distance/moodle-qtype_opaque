@@ -38,13 +38,28 @@ class qtype_opaque_renderer extends qtype_renderer {
 	
 	protected function general_feedback(question_attempt $qa) {
 		$opaquestate = new qbehaviour_opaque_state($qa, null);
-
-		if (!empty($opaquestate->get_correctanstable())){
+		
+		if (!empty($opaquestate->get_solfeedback()) && !empty($opaquestate->get_correctanstable())){
+			$sol = $opaquestate->get_solfeedback();
+		    $doc = new DOMDocument();
+			$doc->loadHTML($sol);
+			$xpath = new DOMXPath($doc);
+			$tags = $xpath->query('.//a');
+			$result = "";
+			foreach($tags as $node) {
+				$domDocument = new DOMDocument();
+				$b = $domDocument->importNode($node->cloneNode(true), true);
+				$domDocument->appendChild($b);
+				$result .= $domDocument->saveHtml();
+			
+			}
 			$table = $opaquestate->get_correctanstable();
+			$table .= $result;
+			
 			return $table;
 		}
 
-		if (!empty($opaquestate->get_solfeedback())){
+		if (!empty($opaquestate->get_solfeedback()) && empty($opaquestate->get_correctanstable())){
 			$sol = $opaquestate->get_solfeedback();
 		    $doc = new DOMDocument();
 			$doc->loadHTML($sol);
@@ -59,5 +74,12 @@ class qtype_opaque_renderer extends qtype_renderer {
 			}
 			return $result;
 		}
-    }
+		
+		if (empty($opaquestate->get_solfeedback()) && !empty($opaquestate->get_correctanstable())){
+			$table = $opaquestate->get_correctanstable();
+			return $table;
+		}
+    
+	
+	}
 }

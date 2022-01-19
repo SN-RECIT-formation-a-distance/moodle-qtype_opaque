@@ -25,7 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-
 /**
  * Represents an Opaque question.
  *
@@ -82,13 +81,67 @@ class qtype_opaque_question extends question_with_responses {
         return null;
     }
 
-    public function summarise_response(array $response) {
+    public function summarise_response(array $response) {	
+
+       /* if ($response["sameans"] == 1){
+            unset($response);
+            $response = "Réponse identique";
+            return $response;
+        } */
+
+        //else {
+			for ($i = 0; $i < 50; $i++){
+			 unset($response[$i]);
+			}
+			
+			foreach($response as $key => $val) {
+				$part = substr($key, 0, strpos($key, '0'));
+				if($part == "previous_AnSwEr") {
+					unset($response[$key]);
+				}
+			}
+			
+			$num = 0;
+			
+			foreach($response as $key => $val) {
+				$part = substr($key, 0, strpos($key, '0'));
+				if($part == "AnSwEr") {
+					$num++;
+					$nom = "Réponse";
+					$nom .= $num;
+					$response[$nom] = $response[$key];
+					unset($response[$key]);
+				}
+			}
+			
+			if ($response["try"] == 1){
+                $response["Variante du problème"] = $response["computed_problem_seed"];
+				$response["WeBWorK"] = $response["questionid"];
+			}
+			$response["Tentative"] = $response["tryHS"];
+            unset($response["Hshow"], $response["Sshow"], $response["answers"],
+             $response["WWsubmit"], $response["attempt"], $response["courseName"], 
+             $response["display_correctness"], $response["display_feedback"], 
+             $response["display_generalfeedback"], $response["display_feedback"],
+             $response["display_markdp"], $response["display_marks"], $response["display_readonly"],
+             $response["endingquestionsolution"], $response["language"], $response["localstate"],
+             $response["maxnumattempt"], $response["modeexam"], $response["navigatorVersion"],
+             $response["passKey"], $response["preferredbehaviour"], $response["problemSeed"],
+             $response["questionhint"], $response["questionid"], $response["questionsolution"],
+             $response["randomseed"], $response["tryHS"], $response["userid"], $response["sameans"],
+			 $response["computed_problem_seed"], $response["submit"], $response["displayMode"],
+			 $response["pasttry"],$response["try"]
+            );
+			
+        //}
+
         ksort($response, SORT_NATURAL);
 
         $formatteddata = array();
         foreach ($response as $name => $value) {
             $formatteddata[] = $name . ' => ' . $value;
-        }
-        return implode(', ', $formatteddata);
+        };	
+		
+        return implode(' | ', $formatteddata);
     }
 }

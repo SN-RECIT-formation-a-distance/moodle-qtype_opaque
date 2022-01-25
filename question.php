@@ -130,7 +130,7 @@ class qtype_opaque_question extends question_with_responses {
              $response["questionhint"], $response["questionid"], $response["questionsolution"],
              $response["randomseed"], $response["tryHS"], $response["userid"], $response["sameans"],
 			 $response["computed_problem_seed"], $response["submit"], $response["displayMode"],
-			 $response["pasttry"],$response["try"]
+			 $response["pasttry"],$response["try"], $response["PGstop"], $response["WWcorrectAns"]
             );
 			
         //}

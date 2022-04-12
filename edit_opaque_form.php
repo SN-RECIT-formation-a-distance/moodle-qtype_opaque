@@ -41,7 +41,7 @@ class qtype_opaque_edit_form extends question_edit_form {
     protected function definition() {
         parent::definition();
         $mform = $this->_form;
-        $mform->removeElement('questiontext');
+        $mform->removeElement('questiontext');    
     /*    $mform->removeElement('generalfeedback'); */
         $mform->removeElement('defaultmark');
         $mform->addElement('hidden', 'defaultmark');

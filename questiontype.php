@@ -89,7 +89,6 @@ class qtype_opaque extends question_type {
             $PAGE->requires->js_call_amd('qtype_opaque/init_mathjax', 'init');
             $PAGE->requires->js_call_amd('qtype_opaque/knowl'); 
             $PAGE->requires->js_call_amd('qtype_opaque/Base64');
-            $PAGE->requires->js_call_amd('qtype_opaque/underscore');
         }
     }
 

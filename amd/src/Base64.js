@@ -6,7 +6,7 @@
 *
 **/
 
-var Base64 = {
+	var Base64 = {
 
 	// private property
 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
@@ -140,4 +140,4 @@ var Base64 = {
 		return string;
 	}
 
-}
+ }

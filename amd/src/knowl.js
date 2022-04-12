@@ -25,9 +25,10 @@
  * global counter, used to uniquely identify each knowl-output element
  * that's necessary because the same knowl could be referenced several times
  * on the same page */
-var knowl_id_counter = 0;
  
-function knowl_click_handler($el) {
+ var knowl_id_counter = 0;
+ 
+ function knowl_click_handler($el) {
   // the knowl attribute holds the id of the knowl
   var knowl_id = $el.attr("knowl");
   // the uid is necessary if we want to reference the same content several times
@@ -127,7 +128,7 @@ function knowl_click_handler($el) {
      }); 
     }
   }
-} //~~ end click handler for *[knowl] elements
+ } //~~ end click handler for *[knowl] elements
 
 /** register a click handler for each element with the knowl attribute 
  * @see jquery's doc about 'live'! the handler function does the 

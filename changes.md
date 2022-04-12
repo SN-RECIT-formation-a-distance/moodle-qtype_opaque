@@ -1,5 +1,9 @@
 # Change log for the The Opaque question type
 
+## Changes in R13-V1.13.4
+
+* Fix jquery errors
+
 ## Changes in R13-V1.13.3
 
 * Added question config form for max number of attempt before read only

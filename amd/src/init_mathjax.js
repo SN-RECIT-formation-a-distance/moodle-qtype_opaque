@@ -28,10 +28,29 @@ define("qtype_opaque/init_mathjax", ["jquery"], function(a) {
                 
                 var check = $('script[type*="math/tex"]');
                 if (check){
-                    if(M.filter_mathjaxloader){
-                        M.filter_mathjaxloader.typeset(); 
-                    }
-                    setTimeout(function(){if (MathJax) MathJax.Hub.Queue(["Typeset",MathJax.Hub]); }, 500);
+					
+					let callback = function(){
+						if (typeof MathJax == "undefined") {
+							setTimeout(callback,500);
+							console.log ("loading mathjax");
+						}
+						else {
+							MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+						}						
+					};
+					
+					let callback2 = function(){
+						if (typeof M.filter_mathjaxloader == "undefined") {
+							setTimeout(callback2,500);
+							console.log ("loading mathjax");
+						}
+						else {
+							M.filter_mathjaxloader.typeset();
+						}						
+					};
+					
+                    setTimeout(callback, 500);
+					setTimeout(callback2, 500);
                 }
             })
         },

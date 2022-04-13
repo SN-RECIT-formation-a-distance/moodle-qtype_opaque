@@ -21,20 +21,20 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since     3.2
  */
-define(['jquery'], function($) {
-    /**
-     * @alias module:mod_quiz/attempt
-     */
-    var t = {
-        init : function() {
-            $( document ).ready(function() {
+define("qtype_opaque/init_mathjax", ["jquery"], function(a) {
+    var b = {
+        init: function init() {
+            a(document).ready(function() {
+                
                 var check = $('script[type*="math/tex"]');
                 if (check){
-                    M.filter_mathjaxloader.typeset(); 
-                    setTimeout(function(){ if (MathJax) MathJax.Hub.Queue(["Typeset",MathJax.Hub]); }, 500);
+                    if(M.filter_mathjaxloader){
+                        M.filter_mathjaxloader.typeset(); 
+                    }
+                    setTimeout(function(){if (MathJax) MathJax.Hub.Queue(["Typeset",MathJax.Hub]); }, 500);
                 }
-            });
+            })
         },
     };
-    return t;
+    return b
 });

@@ -26,6 +26,7 @@
  * that's necessary because the same knowl could be referenced several times
  * on the same page */
  
+define(['jquery'], function($) {
  var knowl_id_counter = 0;
  
  function knowl_click_handler($el) {
@@ -88,7 +89,7 @@
     // DRG: inline code
     if ($el.attr("class") == 'internal') {
       if ($el.attr("base64") == 1 ){
-      	$output.html(Base64.decode( $el.attr("value") ));
+      	$output.html(M.qtype.opaque.Base64.decode( $el.attr("value") ));
       } else {
       	$output.html( $el.attr("value") );
       }
@@ -134,7 +135,6 @@
  * @see jquery's doc about 'live'! the handler function does the 
  *  download/show/hide magic. also add a unique ID, 
  *  necessary when the same reference is used several times. */
- define(['jquery'], function($) {
 /*$(function() { */
   // $("*[knowl]").live({
     $("body").on("click", "*[knowl]", function(evt) {

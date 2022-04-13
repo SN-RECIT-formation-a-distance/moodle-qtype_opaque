@@ -28,7 +28,9 @@ define("qtype_opaque/init_mathjax", ["jquery"], function(a) {
                 
                 var check = $('script[type*="math/tex"]');
                 if (check){
-                    M.filter_mathjaxloader.typeset(); 
+                    if(M.filter_mathjaxloader){
+                        M.filter_mathjaxloader.typeset(); 
+                    }
                     setTimeout(function(){if (MathJax) MathJax.Hub.Queue(["Typeset",MathJax.Hub]); }, 500);
                 }
             })

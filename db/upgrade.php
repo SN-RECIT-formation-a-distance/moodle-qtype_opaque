@@ -17,20 +17,16 @@
 /**
  * Opaque question type upgrade code.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2011 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-
-defined('MOODLE_INTERNAL') || die();
-
 
 /**
  * Upgrade code for the Opaque question type.
  * @param int $oldversion the version we are upgrading from.
  */
-function xmldb_qtype_opaque_upgrade($oldversion) {
+function xmldb_qtype_webwork_opaque_upgrade($oldversion) {
     global $CFG, $DB;
 
     $dbman = $DB->get_manager();
@@ -48,68 +44,13 @@ function xmldb_qtype_opaque_upgrade($oldversion) {
         }
 
         // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2011092600, 'qtype', 'opaque');
-    }
-
-    if ($oldversion < 2011102400) {
-
-        // Define table question_opaque to be renamed to qtype_opaque.
-        $table = new xmldb_table('question_opaque');
-
-        // Launch rename table for question_opaque.
-        $dbman->rename_table($table, 'qtype_opaque_options');
-
-        // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2011102400, 'qtype', 'opaque');
-    }
-
-    if ($oldversion < 2011102401) {
-
-        // Define table question_opaque_engines to be renamed to qtype_opaque_engines.
-        $table = new xmldb_table('question_opaque_engines');
-
-        // Launch rename table for question_opaque_engines.
-        $dbman->rename_table($table, 'qtype_opaque_engines');
-
-        // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2011102401, 'qtype', 'opaque');
-    }
-
-    if ($oldversion < 2011102402) {
-
-        // Define table question_opaque_servers to be renamed to qtype_opaque_servers.
-        $table = new xmldb_table('question_opaque_servers');
-
-        // Launch rename table for question_opaque_servers.
-        $dbman->rename_table($table, 'qtype_opaque_servers');
-
-        // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2011102402, 'qtype', 'opaque');
-    }
-
-    if ($oldversion < 2021111706) {
-
-        // Define table question_opaque to be renamed to qtype_opaque.
-        $table = new xmldb_table('qtype_opaque_options');
-        $field1 = new xmldb_field('showhintafter', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'remoteversion');
-        $field2 = new xmldb_field('showsolutionafter', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showhintafter');
-
-        // Conditionally launch add field showhintafter and showsolutionafter.
-        if (!$dbman->field_exists($table, $field1)) {
-            $dbman->add_field($table, $field1);
-        }
-        if (!$dbman->field_exists($table, $field2)) {
-            $dbman->add_field($table, $field2);
-        }
-
-        // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2021111706, 'qtype', 'opaque');
+        upgrade_plugin_savepoint(true, 2011092600, 'qtype', 'webwork_opaque');
     }
     
     if ($oldversion < 2021111709) {
 
-        // Define table question_opaque to be renamed to qtype_opaque.
-        $table = new xmldb_table('qtype_opaque_options');
+        // Define table question_opaque to be renamed to qtype_webwork_opaque.
+        $table = new xmldb_table('qtype_webwork_opaque_options');
         $field1 = new xmldb_field('showsolutionaftertest', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showsolutionafter');
         $field2 = new xmldb_field('exammode', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showsolutionaftertest');
 
@@ -122,13 +63,13 @@ function xmldb_qtype_opaque_upgrade($oldversion) {
         }
 
         // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2021111709, 'qtype', 'opaque');
+        upgrade_plugin_savepoint(true, 2021111709, 'qtype', 'webwork_opaque');
     }
 
     if ($oldversion < 2021111710) {
 
-        // Define table question_opaque to be renamed to qtype_opaque.
-        $table = new xmldb_table('qtype_opaque_options');
+        // Define table question_opaque to be renamed to qtype_webwork_opaque.
+        $table = new xmldb_table('qtype_webwork_opaque_options');
         $field1 = new xmldb_field('numattemptlock', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'showsolutionaftertest');
 
         // Conditionally launch add field numattemptlock.
@@ -137,7 +78,7 @@ function xmldb_qtype_opaque_upgrade($oldversion) {
 		}
 
         // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2021111710, 'qtype', 'opaque');
+        upgrade_plugin_savepoint(true, 2021111710, 'qtype', 'webwork_opaque');
     }
 
     return true;

@@ -1,8 +1,9 @@
 # Change log for the The Opaque question type
 
-## Changes in R13-V1.13.4
+## Changes in V1.0.0
 
-* Fix jquery errors
+* Name of plugin is changed to strictly be used with WeBWorK and not interfer with qtype_opaque
+* Added compatibility with Moodle 3.11 + and Moodle 4.0+
 
 ## Changes in R13-V1.13.3
 

@@ -15,13 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Unit tests for the opaque question type class.
+ * Unit tests for the webwork_opaque question type class.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2010 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace qtype_opaque;
+
+use stdClass;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -29,18 +32,18 @@ global $CFG;
 require_once($CFG->dirroot . '/question/engine/tests/helpers.php');
 require_once($CFG->libdir . '/xmlize.php');
 require_once($CFG->libdir . '/questionlib.php');
-require_once($CFG->dirroot . '/question/type/opaque/questiontype.php');
+require_once($CFG->dirroot . '/question/type/webwork_opaque/questiontype.php');
 require_once($CFG->dirroot . '/question/format/xml/format.php');
 
 
 /**
- * Mock {@link qtype_opaque_engine_manager} for use in tests.
+ * Mock {@link qtype_webwork_opaque_engine_manager} for use in tests.
  *
  * @copyright 2010 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @group qtype_opaque
+ * @group qtype_webwork_opaque
  */
-class qtype_opaque_engine_manager_mock extends qtype_opaque_engine_manager {
+class qtype_webwork_opaque_engine_manager_mock extends \qtype_opaque_engine_manager {
     protected $knownengines = array();
 
     public function add_test_engine($id, $engine) {
@@ -51,7 +54,7 @@ class qtype_opaque_engine_manager_mock extends qtype_opaque_engine_manager {
         if (isset($this->knownengines[$engineid])) {
             return $this->knownengines[$engineid];
         } else {
-            throw new dml_missing_record_exception('qtype_opaque_servers',
+             throw new \dml_missing_record_exception('qtype_webwork_opaque_servers',
                     '', array('id' => $engineid));
         }
     }
@@ -62,7 +65,7 @@ class qtype_opaque_engine_manager_mock extends qtype_opaque_engine_manager {
         return end($keys);
     }
 
-    protected function store_opaque_servers($urls, $type, $engineid) {
+    protected function store_webwork_opaque_servers($urls, $type, $engineid) {
         // Should not be used, but override to avoid accidental DB writes.
     }
 
@@ -78,16 +81,16 @@ class qtype_opaque_engine_manager_mock extends qtype_opaque_engine_manager {
 
 
 /**
- * Unit tests for the opaque question type class.
+ * Unit tests for the webwork_opaque question type class.
  *
  * @copyright  2010 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_test extends question_testcase {
+class questiontype_test extends \question_testcase {
     protected $qtype;
 
     public function setUp(): void {
-        $this->qtype = new qtype_opaque();
+        $this->qtype = new \qtype_webwork_opaque();
     }
 
     public function assert_same_xml($expectedxml, $xml) {
@@ -96,7 +99,7 @@ class qtype_opaque_test extends question_testcase {
     }
 
     public function test_name() {
-        $this->assertEquals($this->qtype->name(), 'opaque');
+        $this->assertEquals($this->qtype->name(), 'webwork_opaque');
     }
 
     public function test_can_analyse_responses() {
@@ -114,8 +117,8 @@ class qtype_opaque_test extends question_testcase {
     public function test_xml_import_known_engine() {
         // This relies on the fact that the question_bank only creates one
         // copy of each question type class.
-        $manager = new qtype_opaque_engine_manager_mock();
-        question_bank::get_qtype('opaque')->set_engine_manager($manager);
+        $manager = new qtype_webwork_opaque_engine_manager_mock();
+         \question_bank::get_qtype('webwork_opaque')->set_engine_manager($manager);
 
         $engine = new stdClass();
         $engine->name = 'A question engine';
@@ -124,9 +127,9 @@ class qtype_opaque_test extends question_testcase {
         $engine->passkey = 'secret';
         $manager->add_test_engine(123, $engine);
 
-        $xml = '  <question type="opaque">
+        $xml = '  <question type="webwork_opaque">
     <name>
-      <text>An Opaque question</text>
+      <text>An webwork_opaque question</text>
     </name>
     <questiontext format="moodle_auto_format">
       <text></text>
@@ -153,13 +156,13 @@ class qtype_opaque_test extends question_testcase {
   </question>';
         $xmldata = xmlize($xml);
 
-        $importer = new qformat_xml();
+         $importer = new \qformat_xml();
         $q = $importer->try_importing_using_qtypes(
-                $xmldata['question'], null, null, 'opaque');
+                $xmldata['question'], null, null, 'webwork_opaque');
 
         $expectedq = new stdClass();
-        $expectedq->qtype = 'opaque';
-        $expectedq->name = 'An Opaque question';
+        $expectedq->qtype = 'webwork_opaque';
+        $expectedq->name = 'An webwork_opaque question';
         $expectedq->questiontext = '';
         $expectedq->questiontextformat = FORMAT_MOODLE;
         $expectedq->generalfeedback = '';
@@ -176,14 +179,14 @@ class qtype_opaque_test extends question_testcase {
         $q->numattemptlock = 0;
         $expectedq->exammode = 0;
 
-        $this->assert(new question_check_specified_fields_expectation($expectedq), $q);
+         $this->assert(new \question_check_specified_fields_expectation($expectedq), $q);
     }
 
     public function test_xml_import_unknown_engine() {
         // This relies on the fact that the question_bank only creates one
         // copy of each question type class.
-        $manager = new qtype_opaque_engine_manager_mock();
-        question_bank::get_qtype('opaque')->set_engine_manager($manager);
+        $manager = new qtype_webwork_opaque_engine_manager_mock();
+        \question_bank::get_qtype('webwork_opaque')->set_engine_manager($manager);
 
         $engine = new stdClass();
         $engine->name = 'A question engine';
@@ -191,9 +194,9 @@ class qtype_opaque_test extends question_testcase {
         $engine->questionbanks = array('http://example.com/qb');
         $engine->passkey = 'secret';
 
-        $xml = '  <question type="opaque">
+        $xml = '  <question type="webwork_opaque">
     <name>
-      <text>An Opaque question</text>
+      <text>An webwork_opaque question</text>
     </name>
     <questiontext format="moodle_auto_format">
       <text></text>
@@ -226,13 +229,13 @@ class qtype_opaque_test extends question_testcase {
   </question>';
         $xmldata = xmlize($xml);
 
-        $importer = new qformat_xml();
+        $importer = new \qformat_xml();
         $q = $importer->try_importing_using_qtypes(
-                $xmldata['question'], null, null, 'opaque');
+                $xmldata['question'], null, null, 'webwork_opaque');
 
         $expectedq = new stdClass();
-        $expectedq->qtype = 'opaque';
-        $expectedq->name = 'An Opaque question';
+        $expectedq->qtype = 'webwork_opaque';
+        $expectedq->name = 'An webwork_opaque question';
         $expectedq->questiontext = '';
         $expectedq->questiontextformat = FORMAT_MOODLE;
         $expectedq->generalfeedback = '';
@@ -249,7 +252,7 @@ class qtype_opaque_test extends question_testcase {
         $q->numattemptlock = 0;
         $expectedq->exammode = 0;
 
-        $this->assert(new question_check_specified_fields_expectation($expectedq), $q);
+        $this->assert(new \question_check_specified_fields_expectation($expectedq), $q);
         $this->assertTrue($manager->is_same(
                 $engine, $manager->load($q->engineid)));
     }
@@ -257,8 +260,8 @@ class qtype_opaque_test extends question_testcase {
     public function test_xml_export() {
         // This relies on the fact that the question_bank only creates one
         // copy of each question type class.
-        $manager = new qtype_opaque_engine_manager_mock();
-        question_bank::get_qtype('opaque')->set_engine_manager($manager);
+        $manager = new qtype_webwork_opaque_engine_manager_mock();
+         \question_bank::get_qtype('webwork_opaque')->set_engine_manager($manager);
 
         $engine = new stdClass();
         $engine->name = 'A question engine';
@@ -271,8 +274,8 @@ class qtype_opaque_test extends question_testcase {
         $qdata = new stdClass();
         $qdata->id = 321;
         $qdata->contextid = -666;
-        $qdata->qtype = 'opaque';
-        $qdata->name = 'An Opaque question';
+        $qdata->qtype = 'webwork_opaque';
+        $qdata->name = 'An webwork_opaque question';
         $qdata->questiontext = '';
         $qdata->questiontextformat = FORMAT_MOODLE;
         $qdata->generalfeedback = '';
@@ -288,13 +291,13 @@ class qtype_opaque_test extends question_testcase {
         $qdata->options->remoteversion = '1.0';
         $qdata->options->engineid = 123;
 
-        $exporter = new qformat_xml();
+        $exporter = new \qformat_xml();
         $xml = $exporter->writequestion($qdata);
 
         $expectedxml = '<!-- question: 321  -->
-  <question type="opaque">
+  <question type="webwork_opaque">
     <name>
-      <text>An Opaque question</text>
+      <text>An webwork_opaque question</text>
     </name>
     <questiontext format="moodle_auto_format">
       <text></text>

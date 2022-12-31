@@ -20,11 +20,11 @@ Some steps don't have specific items to check. In that case, the check
 Initial set-up
 ==============
 
-Install qtype_opaque, qbehaviour_opaque and local_testopaqueqe.
+Install qtype_webwork_opaque, qbehaviour_webwork_opaque and local_testopaqueqe.
 
 For everything after configuration (CFG), you need an engine as in CFG02 set up.
 
-It is probably worth having a test course with an 'Opaque' question category
+It is probably worth having a test course with an 'webwork_opaque' question category
 set up in its question bank.
 
 
@@ -32,7 +32,7 @@ Configuration
 =============
 
 CFG01 / admin
-  Go to Site administration ► Plugins ► Question types ► Opaque.
+  Go to Site administration ► Plugins ► Question types ► webwork_opaque.
 
 CFG02 / admin
   Click Add another engine, enter
@@ -80,8 +80,8 @@ Editing a question
 
 EDT01 / admin
   Go to the question bank in any course, click Create a new question, select
-  Opaque, and click Next.
-  - you should be on the Adding an Opaque question form.
+  webwork_opaque, and click Next.
+  - you should be on the Adding an webwork_opaque question form.
 
 EDT02 / admin
   Enter
@@ -129,7 +129,7 @@ EDT11 / admin
   Close the preview window.
 
 EDT12 / admin
-  Create a new Opaque question with
+  Create a new webwork_opaque question with
       Question name: Editing failure
       Question engine: Test engine
       Question id: metadata.fail

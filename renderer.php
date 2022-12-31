@@ -17,15 +17,12 @@
 /**
  * Opaque question renderer class.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2009 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-defined('MOODLE_INTERNAL') || die();
-
-require_once($CFG->dirroot . '/question/behaviour/opaque/opaquestate.php');
+require_once($CFG->dirroot . '/question/behaviour/webwork_opaque/opaquestate.php');
 
 
 /**
@@ -34,10 +31,10 @@ require_once($CFG->dirroot . '/question/behaviour/opaque/opaquestate.php');
  * @copyright 2009 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_renderer extends qtype_renderer {
+class qtype_webwork_opaque_renderer extends qtype_renderer {
 	
 	protected function general_feedback(question_attempt $qa) {
-		$opaquestate = new qbehaviour_opaque_state($qa, null);
+		$opaquestate = new qbehaviour_webwork_opaque_state($qa, null);
 		
 		if (!empty($opaquestate->get_solfeedback()) && !empty($opaquestate->get_correctanstable())){
 			$sol = $opaquestate->get_solfeedback();

@@ -1,7 +1,7 @@
-@ou @ou_vle @qtype @qtype_opaque
-Feature: Import and export Opaque questions
+@ou @ou_vle @qtype @qtype_webwork_opaque
+Feature: Import and export webwork_opaque questions
   As a teacher
-  In order to reuse my Opaque questions
+  In order to reuse my webwork_opaque questions
   I need to be able to import and export them
 
   Background:
@@ -14,24 +14,21 @@ Feature: Import and export Opaque questions
     And the following "course enrolments" exist:
       | user    | course | role           |
       | teacher | C1     | editingteacher |
-    And I log in as "teacher"
-    And I am on "Course 1" course homepage
 
   @javascript @_file_upload
-  Scenario: Import and export Opaque questions
+  Scenario: Import and export webwork_opaque questions
     # Import sample file.
-    When I navigate to "Question bank > Import" in current page administration
+    When I am on the "Course 1" "core_question > course question import" page logged in as teacher
     And I set the field "id_format_xml" to "1"
-    And I upload "question/type/opaque/tests/fixtures/testquestion.moodle.xml" file to "Import" filemanager
+    And I upload "question/type/webwork_opaque/tests/fixtures/testquestion.moodle.xml" file to "Import" filemanager
     And I press "id_submitbutton"
     Then I should see "Parsing questions from import file."
     And I should see "Importing 1 questions from file"
     When I press "Continue"
-    Then I should see "Imported Opaque question"
+    Then I should see "Imported webwork_opaque question"
 
     # Now export again.
-    When I am on "Course 1" course homepage
-    And I navigate to "Question bank > Export" in current page administration
+    When I am on the "Course 1" "core_question > course question export" page logged in as teacher
     And I set the field "id_format_xml" to "1"
     And I set the field "category" to "Imported questions (1)"
     And I press "Export questions to file"
@@ -40,5 +37,5 @@ Feature: Import and export Opaque questions
     # Verify that the engine definition was imported.
     When I log out
     And I log in as "admin"
-    And I navigate to "Plugins > Question types > Opaque" in site administration
+    And I navigate to "Plugins > Question types > webwork_opaque" in site administration
     Then I should see "Test OpenMark engine (Used by 1 questions)"

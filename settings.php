@@ -17,7 +17,7 @@
 /**
  * Admin settings for the Opaque question type.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2011 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$settings = new admin_externalpage('qtypesettingopaque',
-        get_string('pluginname', 'qtype_opaque'),
-        new moodle_url('/question/type/opaque/engines.php'),
+$settings = new admin_externalpage('qtypesettingwebworkopaque',
+        get_string('pluginname', 'qtype_webwork_opaque'),
+        new moodle_url('/question/type/webwork_opaque/engines.php'),
         'moodle/question:config');

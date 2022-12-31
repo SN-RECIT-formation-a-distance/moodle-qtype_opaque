@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since     3.2
  */
-define("qtype_opaque/init_mathjax", ["jquery"], function(a) {
+define("qtype_webwork_opaque/init_mathjax", ["jquery"], function(a) {
     var b = {
         init: function init() {
             a(document).ready(function() {

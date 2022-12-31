@@ -17,16 +17,17 @@
 /**
  * Unit tests for (some of) ../enginemanager.php.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2008 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace qtype_webwork_opaque;
 
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
-require_once($CFG->dirroot . '/question/type/opaque/enginemanager.php');
+require_once($CFG->dirroot . '/question/type/webwork_opaque/enginemanager.php');
 
 
 /**
@@ -34,12 +35,11 @@ require_once($CFG->dirroot . '/question/type/opaque/enginemanager.php');
  *
  * @copyright 2008 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @group qtype_opaque
+ * @group qtype_webwork_opaque
  */
-class qtype_opaque_engine_manager_test extends basic_testcase {
+class enginemanager_test extends \basic_testcase {
     public function test_is_same() {
-        $manager = new qtype_opaque_engine_manager();
-
+         $manager = new \qtype_webwork_opaque_engine_manager();
         $engine1 = new stdClass();
         $engine1->name = 'OpenMark live servers';
         $engine1->passkey = '';
@@ -50,7 +50,7 @@ class qtype_opaque_engine_manager_test extends basic_testcase {
                 'https://ltsweb1.open.ac.uk/openmark/!question',
                 'https://ltsweb2.open.ac.uk/openmark/!question');
 
-        $engine2 = new stdClass();
+        $engine2 = new \stdClass();
         $engine2->name = 'OpenMark live servers';
         $engine2->passkey = '';
         $engine2->questionengines = array(

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines the qtype_opaque_engine_manager class.
+ * Defines the qtype_webwork_opaque_engine_manager class.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2006 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/question/type/opaque/connection.php');
+require_once($CFG->dirroot . '/question/type/webwork_opaque/connection.php');
 
 
 /**
@@ -34,11 +34,11 @@ require_once($CFG->dirroot . '/question/type/opaque/connection.php');
  * @copyright 2010 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_engine_manager {
+class qtype_webwork_opaque_engine_manager {
 
     protected static $instance = null;
 
-    /** @return qtype_opaque_engine_manager get the engine manager. */
+    /** @return qtype_webwork_opaque_engine_manager get the engine manager. */
     public static function get() {
         if (is_null(self::$instance)) {
             self::$instance = new self();
@@ -51,7 +51,7 @@ class qtype_opaque_engine_manager {
      */
     public function choices() {
         global $DB;
-        return $DB->get_records_menu('qtype_opaque_engines', array(), 'name ASC', 'id, name');
+        return $DB->get_records_menu('qtype_webwork_opaque_engines', array(), 'name ASC', 'id, name');
     }
 
     /**
@@ -59,21 +59,21 @@ class qtype_opaque_engine_manager {
      * @param int $engineid the id of the engine to load.
      * @return mixed On success, and object with fields id, name, questionengines
      *      and questionbanks. The last two fields are arrays of URLs. On an error,
-     *      returns a string to look up in the qtype_opaque language file as an
+     *      returns a string to look up in the qtype_webwork_opaque language file as an
      *      error message.
      */
     public function load($engineid) {
         global $DB;
-        $engine = $DB->get_record('qtype_opaque_engines',
+        $engine = $DB->get_record('qtype_webwork_opaque_engines',
                 array('id' => $engineid), '*', MUST_EXIST);
 
         $engine->questionengines = array();
         $engine->questionbanks = array();
-        $servers = $DB->get_records('qtype_opaque_servers',
+        $servers = $DB->get_records('qtype_webwork_opaque_servers',
                 array('engineid' => $engineid), 'id ASC');
 
         if (!$servers) {
-            throw new moodle_exception('couldnotloadengineservers', 'qtype_opaque', '', $engineid);
+            throw new moodle_exception('couldnotloadengineservers', 'qtype_webwork_opaque', '', $engineid);
         }
 
         foreach ($servers as $server) {
@@ -82,7 +82,7 @@ class qtype_opaque_engine_manager {
             } else if ($server->type == 'qb') {
                 $engine->questionbanks[] = $server->url;
             } else {
-                throw new moodle_exception('unrecognisedservertype', 'qtype_opaque', '', $engineid);
+                throw new moodle_exception('unrecognisedservertype', 'qtype_webwork_opaque', '', $engineid);
             }
         }
 
@@ -101,33 +101,33 @@ class qtype_opaque_engine_manager {
         $transaction = $DB->start_delegated_transaction();
 
         if (!empty($engine->id)) {
-            $DB->update_record('qtype_opaque_engines', $engine);
+            $DB->update_record('qtype_webwork_opaque_engines', $engine);
         } else {
-            $engine->id = $DB->insert_record('qtype_opaque_engines', $engine);
+            $engine->id = $DB->insert_record('qtype_webwork_opaque_engines', $engine);
         }
-        $DB->delete_records('qtype_opaque_servers', array('engineid' => $engine->id));
-        $this->store_opaque_servers($engine->questionengines, 'qe', $engine->id);
-        $this->store_opaque_servers($engine->questionbanks, 'qb', $engine->id);
+        $DB->delete_records('qtype_webwork_opaque_servers', array('engineid' => $engine->id));
+        $this->store_webwork_opaque_servers($engine->questionengines, 'qe', $engine->id);
+        $this->store_webwork_opaque_servers($engine->questionbanks, 'qb', $engine->id);
 
         $transaction->allow_commit();
         return $engine->id;
     }
 
     /**
-     * Save a list of servers of a given type in the qtype_opaque_servers table.
+     * Save a list of servers of a given type in the qtype_webwork_opaque_servers table.
      *
      * @param array $urls an array of URLs.
      * @param string $type 'qe' or 'qb'.
      * @param int $engineid
      */
-    protected function store_opaque_servers($urls, $type, $engineid) {
+    protected function store_webwork_opaque_servers($urls, $type, $engineid) {
         global $DB;
         foreach ($urls as $url) {
             $server = new stdClass();
             $server->engineid = $engineid;
             $server->type = $type;
             $server->url = $url;
-            $DB->insert_record('qtype_opaque_servers', $server, false);
+            $DB->insert_record('qtype_webwork_opaque_servers', $server, false);
         }
     }
 
@@ -139,8 +139,8 @@ class qtype_opaque_engine_manager {
     public function delete($engineid) {
         global $DB;
         $transaction = $DB->start_delegated_transaction();
-        $DB->delete_records('qtype_opaque_servers', array('engineid' => $engineid));
-        $DB->delete_records('qtype_opaque_engines', array('id' => $engineid));
+        $DB->delete_records('qtype_webwork_opaque_servers', array('engineid' => $engineid));
+        $DB->delete_records('qtype_webwork_opaque_engines', array('id' => $engineid));
         $transaction->allow_commit();
     }
 
@@ -150,19 +150,19 @@ class qtype_opaque_engine_manager {
         // First we try to get a reasonably accurate guess with SQL - we load
         // the id of all engines with the same passkey and which use the first
         // questionengine and questionbank (if any).
-        $tables = array('FROM {qtype_opaque_engines} e');
+        $tables = array('FROM {qtype_webwork_opaque_engines} e');
         $conditions = array('e.passkey = :passkey');
         $params = array('passkey' => $engine->passkey);
         if (!empty($engine->questionengines)) {
             $qeurl = reset($engine->questionengines);
-            $tables[] = "JOIN {qtype_opaque_servers} qe ON
+            $tables[] = "JOIN {qtype_webwork_opaque_servers} qe ON
                     qe.engineid = e.id AND qe.type = 'qe'";
             $conditions[] = 'qe.url = :qeurl';
             $params['qeurl'] = $qeurl;
         }
         if (!empty($engine->questionbanks)) {
             $qburl = reset($engine->questionbanks);
-            $tables[] = "JOIN {qtype_opaque_servers} qb ON
+            $tables[] = "JOIN {qtype_webwork_opaque_servers} qb ON
                     qb.engineid = e.id AND qb.type = 'qb'";
             $conditions[] = 'qb.url = :qburl';
             $params['qburl'] = $qburl;
@@ -219,11 +219,11 @@ class qtype_opaque_engine_manager {
     /**
      * Connect to a particular question engine.
      * @param object $engine the engine definition.
-     * @return qtype_opaque_connection the opaque connection that can be used
+     * @return qtype_webwork_opaque_connection the opaque connection that can be used
      *      to make SOAP calls.
      */
     public function get_connection($engine) {
-        return new qtype_opaque_connection($engine);
+        return new qtype_webwork_opaque_connection($engine);
     }
 
     /**

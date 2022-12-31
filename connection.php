@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines the qtype_opaque_connection class.
+ * Defines the qtype_webwork_opaque_connection class.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2011 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,7 +29,7 @@ require_once($CFG->libdir . '/xmlize.php');
 
 
 // In config.php, you can set
-// $CFG->qtype_opaque_soap_class = 'qtype_opaque_soap_client_with_logging';
+// $CFG->qtype_webwork_opaque_soap_class = 'qtype_webwork_opaque_soap_client_with_logging';
 // To log every SOAP call in huge detail. Lots are writted to moodledata/temp.
 
 /**
@@ -39,7 +39,7 @@ require_once($CFG->libdir . '/xmlize.php');
  * @copyright 2011 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_connection {
+class qtype_webwork_opaque_connection {
 
     protected $questionbanks = array();
     protected $passkeysalt = '';
@@ -47,7 +47,7 @@ class qtype_opaque_connection {
 
     /**
      * Constructor. Normally you should call
-     * {@link qtype_opaque_engine_manager::get_connection()} rather than calling
+     * {@link qtype_webwork_opaque_engine_manager::get_connection()} rather than calling
      * this constructor directly.
      * @param object $engine information about the engine being connected to.
      */
@@ -60,10 +60,10 @@ class qtype_opaque_connection {
             $url = $engine->questionengines[array_rand($engine->questionengines)];
         }
 
-        if (!empty($CFG->qtype_opaque_soap_class)) {
-            $class = $CFG->qtype_opaque_soap_class;
+        if (!empty($CFG->qtype_webwork_opaque_soap_class)) {
+            $class = $CFG->qtype_webwork_opaque_soap_class;
         } else {
-            $class = 'qtype_opaque_soap_client_with_timeout';
+            $class = 'qtype_webwork_opaque_soap_client_with_timeout';
         }
 
         $this->soapclient = new $class($url, array(
@@ -139,7 +139,7 @@ class qtype_opaque_connection {
  * @copyright  2011 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_soap_client_with_timeout extends SoapClient {
+class qtype_webwork_opaque_soap_client_with_timeout extends SoapClient {
     /** @var array configuration options for CURL. */
     protected $curloptions = array(
         CURLOPT_VERBOSE => false,
@@ -162,7 +162,7 @@ class qtype_opaque_soap_client_with_timeout extends SoapClient {
     public function __construct($wsdl, $options) {
         parent::__construct($wsdl, $options);
         if (!array_key_exists('connection_timeout', $options)) {
-            throw new coding_exception('qtype_opaque_timeoutable_soap_client requires ' .
+            throw new coding_exception('qtype_webwork_opaque_timeoutable_soap_client requires ' .
                     'the connection timeout to be specificed in the constructor options.');
         }
         $this->curloptions[CURLOPT_TIMEOUT] = $options['connection_timeout'];
@@ -200,12 +200,12 @@ class qtype_opaque_soap_client_with_timeout extends SoapClient {
 
 
 /**
- * A subclass of qtype_opaque_connection that logs every SOAP call made.
+ * A subclass of qtype_webwork_opaque_connection that logs every SOAP call made.
  * @copyright  2011 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
-class qtype_opaque_soap_client_with_logging extends qtype_opaque_soap_client_with_timeout {
+class qtype_webwork_opaque_soap_client_with_logging extends qtype_webwork_opaque_soap_client_with_timeout {
     /*
      * (non-PHPdoc)
      * @see SoapClient::__soapCall()
@@ -266,7 +266,7 @@ class qtype_opaque_soap_client_with_logging extends qtype_opaque_soap_client_wit
     }
 
     protected function __log_object($o) { // @codingStandardsIgnoreLine
-        $this->__write_to_log(print_r($o, true));
+        $this->__write_to_log(print_r($o, true)); // phpcs:ignore
     }
 
     protected function __log_rule() { // @codingStandardsIgnoreLine

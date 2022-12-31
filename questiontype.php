@@ -17,7 +17,7 @@
 /**
  * The questiontype class for the Opaque question type.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2006 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/question/type/opaque/enginemanager.php');
+require_once($CFG->dirroot . '/question/type/webwork_opaque/enginemanager.php');
 
 
 /**
@@ -34,8 +34,8 @@ require_once($CFG->dirroot . '/question/type/opaque/enginemanager.php');
  * @copyright 2006 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque extends question_type {
-    /** @var qtype_opaque_engine_manager */
+class qtype_webwork_opaque extends question_type {
+    /** @var qtype_webwork_opaque_engine_manager */
     protected $enginemanager;
 
     /** @var javascript_ready */
@@ -43,16 +43,16 @@ class qtype_opaque extends question_type {
 
     public function __construct() {
         parent::__construct();
-        $this->enginemanager = qtype_opaque_engine_manager::get();
+        $this->enginemanager = qtype_webwork_opaque_engine_manager::get();
         $this->jsready = true;
     }
 
     /**
      * Set the engine manager to used. You should not need to call this except
      * when testing.
-     * @param qtype_opaque_engine_manager $manager
+     * @param qtype_webwork_opaque_engine_manager $manager
      */
-    public function set_engine_manager(qtype_opaque_engine_manager $manager) {
+    public function set_engine_manager(qtype_webwork_opaque_engine_manager $manager) {
         $this->enginemanager = $manager;
     }
 
@@ -61,7 +61,7 @@ class qtype_opaque extends question_type {
     }
 
     public function extra_question_fields() {
-        return array('qtype_opaque_options', 'engineid', 'remoteid', 'remoteversion', 'showhintafter', 'showsolutionafter', 'showsolutionaftertest', 'numattemptlock', 'exammode'); 
+        return array('qtype_webwork_opaque_options', 'engineid', 'remoteid', 'remoteversion', 'showhintafter', 'showsolutionafter', 'showsolutionaftertest', 'numattemptlock', 'exammode'); 
     }
 
     public function save_question($question, $form) {
@@ -85,10 +85,10 @@ class qtype_opaque extends question_type {
         $question->exammode = $questiondata->options->exammode;
         if ($this->jsready) {
             $this->jsready = false;
-            $PAGE->requires->js_call_amd('qtype_opaque/changefocus', 'init');
-            $PAGE->requires->js_call_amd('qtype_opaque/init_mathjax', 'init');
-            $PAGE->requires->js_call_amd('qtype_opaque/Base64', 'init');
-            $PAGE->requires->js_call_amd('qtype_opaque/knowl');
+            $PAGE->requires->js_call_amd('qtype_webwork_opaque/changefocus', 'init');
+            $PAGE->requires->js_call_amd('qtype_webwork_opaque/init_mathjax', 'init');
+            $PAGE->requires->js_call_amd('qtype_webwork_opaque/knowl'); 
+            $PAGE->requires->js_call_amd('qtype_webwork_opaque/Base64');
         }
     }
 
@@ -122,29 +122,29 @@ class qtype_opaque extends question_type {
     }
 
     public function import_from_xml($data, $question, qformat_xml $format, $extra = null) {
-        if (!isset($data['@']['type']) || $data['@']['type'] != 'opaque') {
+        if (!isset($data['@']['type']) || $data['@']['type'] != 'webwork_opaque') {
             return false;
         }
 
         $question = $format->import_headers($data);
-        $question->qtype = 'opaque';
+        $question->qtype = 'webwork_opaque';
         $question->remoteid = $format->getpath($data, array('#', 'remoteid', 0, '#'),
-                '', false, get_string('missingremoteidinimport', 'qtype_opaque')); 
+                '', false, get_string('missingremoteidinimport', 'qtype_webwork_opaque')); 
         $question->remoteversion = $format->getpath($data, array('#', 'remoteversion', 0, '#'),
-                '', false, get_string('missingremoteversioninimport', 'qtype_opaque'));
+                '', false, get_string('missingremoteversioninimport', 'qtype_webwork_opaque'));
         $question->showhintafter = $format->getpath($data, array('#', 'showhintafter', 0, '#'),
-                '', false, get_string('missingshowhintafterinimport', 'qtype_opaque'));
+                '', false, get_string('missingshowhintafterinimport', 'qtype_webwork_opaque'));
         $question->showsolutionafter = $format->getpath($data, array('#', 'showsolutionafter', 0, '#'),
-                '', false, get_string('missingshowsolutionafterinimport', 'qtype_opaque'));
+                '', false, get_string('missingshowsolutionafterinimport', 'qtype_webwork_opaque'));
         $question->showsolutionaftertest = $format->getpath($data, array('#', 'showsolutionaftertest', 0, '#'),
-                '', false, get_string('missingshowsolutionaftertestinimport', 'qtype_opaque'));
+                '', false, get_string('missingshowsolutionaftertestinimport', 'qtype_webwork_opaque'));
         $question->numattemptlock = $format->getpath($data, array('#', 'numattemptlock', 0, '#'),
-                '', false, get_string('missingnumattemptlockinimport', 'qtype_opaque'));
+                '', false, get_string('missingnumattemptlockinimport', 'qtype_webwork_opaque'));
         $question->exammode = $format->getpath($data, array('#', 'exammode', 0, '#'),
-                '', false, get_string('missingexammodeinimport', 'qtype_opaque')); 
+                '', false, get_string('missingexammodeinimport', 'qtype_webwork_opaque')); 
 
         // Engine bit.
-        $strerror = get_string('missingenginedetailsinimport', 'qtype_opaque');
+        $strerror = get_string('missingenginedetailsinimport', 'qtype_webwork_opaque');
         if (!isset($data['#']['engine'][0])) {
              $format->error($strerror);
         }

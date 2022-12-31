@@ -17,7 +17,7 @@
 /**
  * Behat steps definitions for the Opaque question type.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @category  test
  * @copyright 2014 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -32,12 +32,12 @@ use Moodle\BehatExtension\Exception\SkippedException;
 /**
  * Steps definitions related to the Opaque question type.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @category  test
  * @copyright 2014 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class behat_qtype_opaque extends behat_base {
+class behat_qtype_webwork_opaque extends behat_base {
 
     /**
      * This step looks to see if there is information about a Questoin engine
@@ -47,15 +47,15 @@ class behat_qtype_opaque extends behat_base {
      *
      * @When /^I set up Opaque using the test configuration$/
      */
-    public function i_set_up_opaque_using_the_test_configuration() {
+    public function i_set_up_webwork_opaque_using_the_test_configuration() {
         // The require_once is here, this file may be required by behat before including /config.php.
         require_once(__DIR__ . '/../test_engine_configuration.php');
 
-        if (!qtype_opaque_test_config::is_test_config_available()) {
+        if (!qtype_webwork_opaque_test_config::is_test_config_available()) {
             throw new SkippedException('To run this Opaque test, ' .
                     ' you must define a test engine configuration in config.php.');
         }
 
-        qtype_opaque_test_config::setup_test_opaque_engine();
+        qtype_webwork_opaque_test_config::setup_test_webwork_opaque_engine();
     }
 }

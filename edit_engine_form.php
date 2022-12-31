@@ -17,7 +17,7 @@
 /**
  * Page for editing the configuration of a particular Opaque engine.
  *
- * @package   qtype_opaque
+ * @package   
  * @copyright 2010 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,7 +35,7 @@ require_once($CFG->libdir . '/validateurlsyntax.php');
  * @copyright 2006 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_engine_edit_form extends moodleform {
+class qtype_webwork_opaque_engine_edit_form extends moodleform {
 
     /** @var int timeout for SOAP calls, in seconds. */
     const DEFAULT_TIMEOUT = 10; // Seconds.
@@ -43,30 +43,30 @@ class qtype_opaque_engine_edit_form extends moodleform {
     protected function definition() {
         $mform = $this->_form;
 
-        $mform->addElement('text', 'enginename', get_string('enginename', 'qtype_opaque'));
-        $mform->addRule('enginename', get_string('missingenginename', 'qtype_opaque'),
+        $mform->addElement('text', 'enginename', get_string('enginename', 'qtype_webwork_opaque'));
+        $mform->addRule('enginename', get_string('missingenginename', 'qtype_webwork_opaque'),
                 'required', null, 'client');
         $mform->setType('enginename', PARAM_MULTILANG);
 
         $mform->addElement('textarea', 'questionengineurls',
-                get_string('questionengineurls', 'qtype_opaque'), 'rows="5" cols="80"');
-        $mform->addRule('questionengineurls', get_string('missingengineurls', 'qtype_opaque'),
+                get_string('questionengineurls', 'qtype_webwork_opaque'), 'rows="5" cols="80"');
+        $mform->addRule('questionengineurls', get_string('missingengineurls', 'qtype_webwork_opaque'),
                 'required', null, 'client');
         $mform->setType('questionengineurls', PARAM_RAW);
 
         $mform->addElement('textarea', 'questionbankurls',
-                get_string('questionbankurls', 'qtype_opaque'), array('rows' => 5, 'cols' => 80));
+                get_string('questionbankurls', 'qtype_webwork_opaque'), array('rows' => 5, 'cols' => 80));
         $mform->setType('questionbankurls', PARAM_RAW);
 
-        $mform->addElement('text', 'passkey', get_string('passkey', 'qtype_opaque'));
+        $mform->addElement('text', 'passkey', get_string('passkey', 'qtype_webwork_opaque'));
         $mform->setType('passkey', PARAM_MULTILANG);
-        $mform->addHelpButton('passkey', 'passkey', 'qtype_opaque');
+        $mform->addHelpButton('passkey', 'passkey', 'qtype_webwork_opaque');
 
-        $mform->addElement('text', 'timeout', get_string('timeout', 'qtype_opaque'));
+        $mform->addElement('text', 'timeout', get_string('timeout', 'qtype_webwork_opaque'));
         $mform->setType('timeout', PARAM_INT);
         $mform->setDefault('timeout', self::DEFAULT_TIMEOUT);
         $mform->addRule('timeout', get_string('required'), 'required', null, 'client');
-        $mform->addHelpButton('timeout', 'timeout', 'qtype_opaque');
+        $mform->addHelpButton('timeout', 'timeout', 'qtype_webwork_opaque');
 
         $mform->addElement('hidden', 'engineid');
         $mform->setType('engineid', PARAM_INT);
@@ -87,7 +87,7 @@ class qtype_opaque_engine_edit_form extends moodleform {
         foreach ($urls as $url) {
             $url = trim($url);
             if ($url && !validateUrlSyntax($url, 's?H?S?u-P-a?I?p?f?q?r?')) {
-                $errors[$field] = get_string('urlsinvalid', 'qtype_opaque');
+                $errors[$field] = get_string('urlsinvalid', 'qtype_webwork_opaque');
             }
         }
     }
@@ -119,7 +119,7 @@ class qtype_opaque_engine_edit_form extends moodleform {
         $this->validateurllist($data, 'questionbankurls', $errors);
 
         if (empty($data['timeout']) || $data['timeout'] <= 0) {
-            $errors['timeout'] = get_string('timeoutmustbepositive', 'qtype_opaque');
+            $errors['timeout'] = get_string('timeoutmustbepositive', 'qtype_webwork_opaque');
         }
 
         return $errors;

@@ -1,5 +1,5 @@
-@ou @ou_vle @qtype @qtype_opaque
-Feature: Test an Opaque question using the legacy sub-sub editor
+@ou @ou_vle @qtype @qtype_webwork_opaque
+Feature: Test an webwork_opaque question using the legacy sub-sub editor
   In order for all our old questions to keep working
   As an OU staff member
   I we need the editadvancedfield OpenMark component to keep working in Moodle.
@@ -14,7 +14,7 @@ Feature: Test an Opaque question using the legacy sub-sub editor
     And the following "course enrolments" exist:
       | user    | course | role           |
       | teacher | C1     | editingteacher |
-    And I set up Opaque using the test configuration
+    And I set up webwork_opaque using the test configuration
     And I log in as "teacher"
     And I am on "Course 1" course homepage
     And I navigate to "Question bank" in current page administration
@@ -22,14 +22,14 @@ Feature: Test an Opaque question using the legacy sub-sub editor
   @javascript
   Scenario: Attempt a question that uses the old editor
     # Create a new question.
-    And I add a "Opaque" question filling the form with:
-      | Question name    | Test Opaque question |
+    And I add a "webwork_opaque" question filling the form with:
+      | Question name    | Test webwork_opaque question |
       | Question id      | omdemo.text.q02      |
       | Question version | 1.3                  |
-    Then I should see "Test Opaque question"
+    Then I should see "Test webwork_opaque question"
 
     # Preview it.
-    When I choose "Preview" action for "Test Opaque question" in the question bank
+    When I choose "Preview" action for "Test webwork_opaque question" in the question bank
     And I switch to "questionpreview" window
     And I set the following fields to these values:
       | Marks | Show mark and max |

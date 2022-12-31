@@ -17,13 +17,10 @@
 /**
  * Opaque question definition class.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2009 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Represents an Opaque question.
@@ -31,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2009 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_question extends question_with_responses {
+class qtype_webwork_opaque_question extends question_with_responses {
     /** @var integer the ID of the question engine that serves this question. */
     public $engineid;
     /** @var string the id by which the question engine knows this question. */
@@ -50,7 +47,7 @@ class qtype_opaque_question extends question_with_responses {
     public $exammode;
 
     public function make_behaviour(question_attempt $qa, $preferredbehaviour) {
-        return question_engine::make_behaviour('opaque', $qa, $preferredbehaviour);
+        return question_engine::make_behaviour('webwork_opaque', $qa, $preferredbehaviour);
     }
 
     public function get_expected_data() {
@@ -63,7 +60,7 @@ class qtype_opaque_question extends question_with_responses {
     }
 
     public function get_variants_selection_seed() {
-        return "All opaque questions in a usage should get the same variant!";
+        return "All webwork_opaque questions in a usage should get the same variant!";
     }
 
     public function get_num_variants() {

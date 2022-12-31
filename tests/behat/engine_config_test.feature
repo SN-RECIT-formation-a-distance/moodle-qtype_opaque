@@ -1,6 +1,6 @@
-@ou @ou_vle @qtype @qtype_opaque
-Feature: Opaque question type configuration UI
-  In order to use Opaque question engines.
+@ou @ou_vle @qtype @qtype_webwork_opaque
+Feature: webwork_opaque question type configuration UI
+  In order to use webwork_opaque question engines.
   As an admin
   I need configure remote engines.
 
@@ -10,12 +10,12 @@ Feature: Opaque question type configuration UI
   @javascript
   Scenario: Test the question engine configuration UI.
     # Configure a question engine.
-    And I navigate to "Plugins > Question types > Opaque" in site administration
+    And I navigate to "Plugins > Question types > webwork_opaque" in site administration
     And I follow "Add another engine"
     And I set the following fields to these values:
       | Engine name          | Example engine                   |
-      | Question engine URLs | http://example.com/opaque/engine |
-      | Question bank URLs   | http://example.com/opaque/bank   |
+      | Question engine URLs | http://example.com/webwork_opaque/engine |
+      | Question bank URLs   | http://example.com/webwork_opaque/bank   |
     And I press "Save changes"
     Then I should see "Example engine (Not used)"
 
@@ -23,8 +23,8 @@ Feature: Opaque question type configuration UI
     When I follow "Edit"
     Then the following fields match these values:
       | Engine name          | Example engine                   |
-      | Question engine URLs | http://example.com/opaque/engine |
-      | Question bank URLs   | http://example.com/opaque/bank   |
+      | Question engine URLs | http://example.com/webwork_opaque/engine |
+      | Question bank URLs   | http://example.com/webwork_opaque/bank   |
     And I set the following fields to these values:
       | Engine name          | Edited engine name               |
     And I press "Save changes"
@@ -37,7 +37,7 @@ Feature: Opaque question type configuration UI
     Then I should see "Currenly, there are no configured remote engines."
 
     # Test the connection.
-    When I set up Opaque using the test configuration
+    When I set up webwork_opaque using the test configuration
     And I reload the page
     And I follow "Test connection"
     Then I should see "Connection test passed."

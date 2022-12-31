@@ -17,13 +17,10 @@
 /**
  * Helper class for setting up the Opaque configuration for automated tests.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2014 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
 
 /**
  * Helper class for setting up the Opaque configuration for automated tests.
@@ -31,9 +28,9 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2014 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-abstract class qtype_opaque_test_config {
+abstract class qtype_webwork_opaque_test_config {
     public static function is_test_config_available() {
-        return defined('QTYPE_OPAQUE_TEST_ENGINE_QE');
+        return defined('QTYPE_webwork_opaque_TEST_ENGINE_QE');
     }
 
     /**
@@ -41,27 +38,27 @@ abstract class qtype_opaque_test_config {
      * from test classes that cannot subclass this one, for whatever reason.
      * @return int the engine id.
      */
-    public static function setup_test_opaque_engine() {
+    public static function setup_test_webwork_opaque_engine() {
         global $CFG;
-        require_once($CFG->dirroot . '/question/type/opaque/enginemanager.php');
+        require_once($CFG->dirroot . '/question/type/webwork_opaque/enginemanager.php');
 
         if (!self::is_test_config_available()) {
             throw new coding_exception('The calling code should call setup_test_maxima_connection ' .
                     'and skip the test in an appropriate way if it returns false.');
         }
 
-        if (!defined('QTYPE_OPAQUE_TEST_ENGINE_QE')) {
+        if (!defined('QTYPE_webwork_opaque_TEST_ENGINE_QE')) {
             return null;
         }
         $engine = new stdClass();
-        $engine->name = 'Opaque engine for tests';
-        $engine->passkey = defined('QTYPE_OPAQUE_TEST_ENGINE_PASSKEY') ? QTYPE_OPAQUE_TEST_ENGINE_PASSKEY : '';
-        $engine->timeout = defined('QTYPE_OPAQUE_TEST_ENGINE_TIMEOUT') ? QTYPE_OPAQUE_TEST_ENGINE_TIMEOUT : 10;
-        $engine->questionengines = array(QTYPE_OPAQUE_TEST_ENGINE_QE);
+        $engine->name = 'webwork_opaque engine for tests';
+        $engine->passkey = defined('QTYPE_webwork_opaque_TEST_ENGINE_PASSKEY') ? QTYPE_webwork_opaque_TEST_ENGINE_PASSKEY : '';
+        $engine->timeout = defined('QTYPE_webwork_opaque_TEST_ENGINE_TIMEOUT') ? QTYPE_webwork_opaque_TEST_ENGINE_TIMEOUT : 10;
+        $engine->questionengines = array(QTYPE_webwork_opaque_TEST_ENGINE_QE);
         $engine->questionbanks = array();
-        if (defined('QTYPE_OPAQUE_TEST_ENGINE_TN')) {
-            $engine->questionbanks[] = QTYPE_OPAQUE_TEST_ENGINE_TN;
+        if (defined('QTYPE_webwork_opaque_TEST_ENGINE_TN')) {
+            $engine->questionbanks[] = QTYPE_webwork_opaque_TEST_ENGINE_TN;
         }
-        return qtype_opaque_engine_manager::get()->save($engine);
+        return qtype_webwork_opaque_engine_manager::get()->save($engine);
     }
 }

@@ -50,7 +50,7 @@ before_install:
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
-  - moodle-plugin-ci add-plugin moodleou/moodle-qbehaviour_opaque
+  - moodle-plugin-ci add-plugin moodleou/moodle-qbehaviour_webwork_opaque
   - moodle-plugin-ci install
 
 script:

@@ -9,7 +9,7 @@
   </question>
 
 <!-- question: 1  -->
-  <question type="opaque">
+  <question type="webwork_opaque">
     <name>
       <text>Imported Opaque question</text>
     </name>

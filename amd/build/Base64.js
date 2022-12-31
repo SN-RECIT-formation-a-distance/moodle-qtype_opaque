@@ -5,12 +5,12 @@
 *  http://www.webtoolkit.info/
 *
 **/
-define("qtype_opaque/Base64", ["jquery"], function(a) {
+define("qtype_webwork_opaque/Base64", ["jquery"], function(a) {
     var b = {
         init: function init() {
 			M.qtype = M.qtype || {};
-			M.qtype.opaque = M.qtype.opaque || {};
-			M.qtype.opaque.Base64 = {
+			M.qtype.webwork.opaque = M.qtype.webwork.opaque || {};
+			M.qtype.webwork.opaque.Base64 = {
 
 				// private property
 				_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
@@ -21,7 +21,7 @@ define("qtype_opaque/Base64", ["jquery"], function(a) {
 					var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
 					var i = 0;
 
-					input = M.qtype.opaque.Base64._utf8_encode(input);
+					input = M.qtype.webwork.opaque.Base64._utf8_encode(input);
 
 					while (i < input.length) {
 
@@ -80,7 +80,7 @@ define("qtype_opaque/Base64", ["jquery"], function(a) {
 
 					}
 
-					output = M.qtype.opaque.Base64._utf8_decode(output);
+					output = M.qtype.webwork.opaque.Base64._utf8_decode(output);
 
 					return output;
 

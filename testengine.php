@@ -17,7 +17,7 @@
 /**
  * Page for testing that Moodle can connect to a particular Opaque engine.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2006 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,7 +25,7 @@
 
 require_once(dirname(__FILE__) . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot . '/question/type/opaque/enginemanager.php');
+require_once($CFG->dirroot . '/question/type/webwork_opaque/enginemanager.php');
 
 $engineid = required_param('engineid', PARAM_INT);
 
@@ -34,22 +34,22 @@ require_login();
 $context = context_system::instance();
 require_capability('moodle/question:config', $context);
 
-admin_externalpage_setup('qtypesettingopaque', '', null,
-        new moodle_url('/question/type/opaque/testengine.php', array('engineid' => $engineid)));
-$PAGE->set_title(get_string('testingengine', 'qtype_opaque'));
-$PAGE->navbar->add(get_string('testingengine', 'qtype_opaque'));
+admin_externalpage_setup('qtypesettingwebworkopaque', '', null,
+        new moodle_url('/question/type/webwork_opaque/testengine.php', array('engineid' => $engineid)));
+$PAGE->set_title(get_string('testingengine', 'qtype_webwork_opaque'));
+$PAGE->navbar->add(get_string('testingengine', 'qtype_webwork_opaque'));
 
 // Load the engine definition.
-$enginemanager = qtype_opaque_engine_manager::get();
+$enginemanager = qtype_webwork_opaque_engine_manager::get();
 $engine = $enginemanager->load($engineid);
 
 // Do the test.
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('testingengine', 'qtype_opaque'));
+echo $OUTPUT->heading(get_string('testingengine', 'qtype_webwork_opaque'));
 
 $ok = true;
 foreach ($engine->questionengines as $engineurl) {
-    echo $OUTPUT->heading(get_string('testconnectionto', 'qtype_opaque', $engineurl), 3);
+    echo $OUTPUT->heading(get_string('testconnectionto', 'qtype_webwork_opaque', $engineurl), 3);
 
     try {
         $engine->urlused = $engineurl;
@@ -57,25 +57,25 @@ foreach ($engine->questionengines as $engineurl) {
         if (is_array($info) && isset($info['engineinfo']['#'])) {
             echo xml_to_dl($info['engineinfo']['#']);
         } else {
-            echo $OUTPUT->notification(get_string('testconnectionunknownreturn', 'qtype_opaque'));
+            echo $OUTPUT->notification(get_string('testconnectionunknownreturn', 'qtype_webwork_opaque'));
             echo html_writer::tag('<pre>', s($info));
             $ok = false;
         }
 
     } catch (SoapFault $sf) {
-        echo $OUTPUT->notification(get_string('testconnectionfailed', 'qtype_opaque'));
+        echo $OUTPUT->notification(get_string('testconnectionfailed', 'qtype_webwork_opaque'));
         echo html_writer::tag('<pre>', s($sf));
         $ok = false;
     }
 }
 
 if ($ok) {
-    echo $OUTPUT->notification(get_string('testconnectionpassed', 'qtype_opaque'), 'notifysuccess');
+    echo $OUTPUT->notification(get_string('testconnectionpassed', 'qtype_webwork_opaque'), 'notifysuccess');
 } else {
-    echo $OUTPUT->notification(get_string('testconnectionfailed', 'qtype_opaque'));
+    echo $OUTPUT->notification(get_string('testconnectionfailed', 'qtype_webwork_opaque'));
 }
 
-echo $OUTPUT->continue_button(new moodle_url('/question/type/opaque/engines.php'));
+echo $OUTPUT->continue_button(new moodle_url('/question/type/webwork_opaque/engines.php'));
 echo $OUTPUT->footer();
 
 /**

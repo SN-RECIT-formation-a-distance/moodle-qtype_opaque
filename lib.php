@@ -17,19 +17,16 @@
 /**
  * Serve question type files.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2012 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Checks file access for opaque questions.
  */
-function qtype_opaque_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+function qtype_webwork_opaque_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     global $CFG;
     require_once($CFG->libdir . '/questionlib.php');
-    question_pluginfile($course, $context, 'qtype_opaque', $filearea, $args, $forcedownload, $options);
+    question_pluginfile($course, $context, 'qtype_webwork_opaque', $filearea, $args, $forcedownload, $options);
 }

@@ -17,12 +17,11 @@
 /**
  * The question engine created event.
  *
- * @package    qtype_opaque
+ * @package    qtype_webwork_opaque
  * @copyright  2014 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace qtype_opaque\event;
-defined('MOODLE_INTERNAL') || die();
+namespace qtype_webwork_opaque\event;
 
 /**
  * The question engine created event class.
@@ -35,23 +34,23 @@ class engine_created extends \core\event\base {
     protected function init() {
         $this->data['crud'] = 'c';
         $this->data['edulevel'] = self::LEVEL_OTHER;
-        $this->data['objecttable'] = 'qtype_opaque_engines';
+        $this->data['objecttable'] = 'qtype_webwork_opaque_engines';
     }
 
     public static function get_name() {
-        return get_string('eventengine_created', 'qtype_opaque');
+        return get_string('eventengine_created', 'qtype_webwork_opaque');
     }
 
     public function get_description() {
-        return "The user with id {$this->userid} created an Opaque question engine with id {$this->objectid}.";
+        return "The user with id {$this->userid} created an webwork_opaque question engine with id {$this->objectid}.";
     }
 
     public function get_url() {
-        return new \moodle_url('/question/type/opaque/testengine.php?', array('engineid' => '1'));
+        return new \moodle_url('/question/type/webwork_opaque/testengine.php?', array('engineid' => '1'));
     }
 
     public function get_legacy_logdata() {
-        return array($this->courseid, 'qtype_opaque', 'question/type/opaque/engines.php',
+        return array($this->courseid, 'qtype_webwork_opaque', 'question/type/webwork_opaque/engines.php',
                 $this->objectid, $this->contextinstanceid);
     }
 }

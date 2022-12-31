@@ -72,7 +72,7 @@ jobs:
 
       - name: Install Moodle
         run: |
-          moodle-plugin-ci add-plugin --branch main moodleou/moodle-qbehaviour_opaque
+          moodle-plugin-ci add-plugin --branch main moodleou/moodle-qbehaviour_webwork_opaque
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}

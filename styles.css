@@ -1,4 +1,4 @@
-.que.opaque .formulation {
+.que.webwork_opaque .formulation {
     padding: 0;
     background: transparent;
 }
@@ -13,27 +13,27 @@
     background: #eee;
 }
 
-.que.opaque .question_aborted {
+.que.webwork_opaque .question_aborted {
     padding: 7em 1em;
     text-align: center;
     background: #eee;
 }
 
 /* Override some unwanted bootstrap CSS that happens to match the OpanMark HTML structure. */
-.que.opaque .radio,
-.que.opaque .checkbox {
+.que.webwork_opaque .radio,
+.que.webwork_opaque .checkbox {
     min-height: 0;
 }
-.que.opaque .radio input[type="radio"],
-.que.opaque .checkbox input[type="checkbox"] {
+.que.webwork_opaque .radio input[type="radio"],
+.que.webwork_opaque .checkbox input[type="checkbox"] {
     float: none;
     margin: 0 4px 0 0;
 }
-.que.opaque input[type="text"] {
+.que.webwork_opaque input[type="text"] {
     padding: 2px;
     height: 28px;
 }
-.que.opaque select{
+.que.webwork_opaque select{
     font-size:1rem;
 }
     
@@ -45,7 +45,7 @@
 
 
 /* Prevent firefox on window is not showing outline when using .focus(). */
-body.gecko .que.opaque input.questionflagimage:focus {
+body.gecko .que.webwork_opaque input.questionflagimage:focus {
     outline: 1px dotted;
 }
 

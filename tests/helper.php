@@ -17,7 +17,7 @@
 /**
  * Test helper code for the Opaque question type.
  *
- * @package   qtype_opaque
+ * @package   qtype_webwork_opaque
  * @copyright 2010 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -34,7 +34,7 @@ require_once(__DIR__ . '/test_engine_configuration.php');
  * @copyright 2010 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_opaque_test_helper {
+class qtype_webwork_opaque_test_helper {
     public function get_test_questions() {
         return array('mu120_m5_q01');
     }
@@ -42,19 +42,19 @@ class qtype_opaque_test_helper {
     /**
      * Makes an Opaque question that refers to one of the sample questions
      * supplied by OpenMark.
-     * @return qtype_opaque_question
+     * @return qtype_webwork_opaque_question
      */
     public function make_opaque_question_mu120_m5_q01() {
         global $DB;
 
         $engineid = $this->get_engine_id();
 
-        question_bank::load_question_definition_classes('opaque');
-        $q = new qtype_opaque_question();
+        question_bank::load_question_definition_classes('webwork_opaque');
+        $q = new qtype_webwork_opaque_question();
         test_question_maker::initialise_a_question($q);
 
         $q->name = 'samples.mu120.module5.question01';
-        $q->qtype = question_bank::get_qtype('opaque');
+        $q->qtype = question_bank::get_qtype('webwork_opaque');
         $q->defaultmark = 3;
 
         $q->engineid = $engineid;
@@ -70,6 +70,6 @@ class qtype_opaque_test_helper {
     }
 
     protected function get_engine_id() {
-        return qtype_opaque_test_config::setup_test_opaque_engine();
+        return qtype_webwork_opaque_test_config::setup_test_webwork_opaque_engine();
     }
 }

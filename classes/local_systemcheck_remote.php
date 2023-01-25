@@ -20,7 +20,7 @@ use local_systemcheck\remote_check_result;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/question/type/opaque/enginemanager.php');
+require_once($CFG->dirroot . '/question/type/webwork_opaque/enginemanager.php');
 
 /**
  * Remote check for the Opaque question type: verify we can connect to the share we use.

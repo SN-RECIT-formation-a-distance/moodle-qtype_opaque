@@ -30,24 +30,8 @@ function xmldb_qtype_webwork_opaque_upgrade($oldversion) {
     global $CFG, $DB;
 
     $dbman = $DB->get_manager();
-
-    if ($oldversion < 2011092600) {
-
-        // Define field timeout to be added to question_opaque_engines.
-        $table = new xmldb_table('question_opaque_engines');
-        $field = new xmldb_field('timeout', XMLDB_TYPE_INTEGER, '10', null,
-                XMLDB_NOTNULL, null, '10', 'passkey');
-
-        // Conditionally launch add field timeout.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2011092600, 'qtype', 'webwork_opaque');
-    }
     
-    if ($oldversion < 2021111709) {
+    if ($oldversion < 2023010100) {
 
         // Define table question_opaque to be renamed to qtype_webwork_opaque.
         $table = new xmldb_table('qtype_webwork_opaque_options');
@@ -63,10 +47,10 @@ function xmldb_qtype_webwork_opaque_upgrade($oldversion) {
         }
 
         // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2021111709, 'qtype', 'webwork_opaque');
+        upgrade_plugin_savepoint(true, 2023010101, 'qtype', 'webwork_opaque');
     }
 
-    if ($oldversion < 2021111710) {
+    if ($oldversion < 2023010100) {
 
         // Define table question_opaque to be renamed to qtype_webwork_opaque.
         $table = new xmldb_table('qtype_webwork_opaque_options');
@@ -78,7 +62,7 @@ function xmldb_qtype_webwork_opaque_upgrade($oldversion) {
 		}
 
         // Qtype opaque savepoint reached.
-        upgrade_plugin_savepoint(true, 2021111710, 'qtype', 'webwork_opaque');
+        upgrade_plugin_savepoint(true, 2023010101, 'qtype', 'webwork_opaque');
     }
 
     return true;

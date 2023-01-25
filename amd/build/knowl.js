@@ -89,7 +89,7 @@ define(['jquery'], function($) {
     // DRG: inline code
     if ($el.attr("class") == 'internal') {
       if ($el.attr("base64") == 1 ){
-      	$output.html(M.qtype.opaque.Base64.decode( $el.attr("value") ));
+      	$output.html(M.qtype.webwork.opaque.Base64.decode( $el.attr("value") ));
       } else {
       	$output.html( $el.attr("value") );
       }

@@ -48,7 +48,7 @@ class restore_qtype_webwork_opaque_plugin extends restore_qtype_plugin {
     /**
      * Process the qtype/opaque element.
      */
-    public function process_opaque($data) {
+    public function process_webwork_opaque($data) {
         global $DB;
 
         $engine = (object) $data['engine'][0];
@@ -88,13 +88,13 @@ class restore_qtype_webwork_opaque_plugin extends restore_qtype_plugin {
      * Process the qtype/opaque/server element
      */
     public function process_engine($data) {
-        // Do nothing. All the data is processed in process_opaque.
+        // Do nothing. All the data is processed in process_webwork_opaque.
     }
 
     /**
      * Process the qtype/opaque/server element
      */
     public function process_server($data) {
-        // Do nothing. All the data is processed in process_opaque.
+        // Do nothing. All the data is processed in process_webwork_opaque.
     }
 }

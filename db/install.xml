@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="question/type/webwork_opaque/db" VERSION="20221129" COMMENT="XMLDB file for Moodle question/type/webwork_opaque"
+<XMLDB PATH="question/type/webwork_opaque/db" VERSION="20230101" COMMENT="XMLDB file for Moodle question/type/webwork_opaque"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >

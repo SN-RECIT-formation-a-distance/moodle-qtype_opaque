@@ -88,7 +88,7 @@ class qtype_webwork_opaque extends question_type {
             $PAGE->requires->js_call_amd('qtype_webwork_opaque/changefocus', 'init');
             $PAGE->requires->js_call_amd('qtype_webwork_opaque/init_mathjax', 'init');
             $PAGE->requires->js_call_amd('qtype_webwork_opaque/knowl'); 
-            $PAGE->requires->js_call_amd('qtype_webwork_opaque/Base64');
+            $PAGE->requires->js_call_amd('qtype_webwork_opaque/Base64', 'init');
         }
     }
 

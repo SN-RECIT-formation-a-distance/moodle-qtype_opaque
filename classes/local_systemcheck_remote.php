@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace qtype_opaque;
+namespace qtype_webwork_opaque;
 
 use local_systemcheck\remote_check_result;
 
@@ -25,7 +25,7 @@ require_once($CFG->dirroot . '/question/type/webwork_opaque/enginemanager.php');
 /**
  * Remote check for the Opaque question type: verify we can connect to the share we use.
  *
- * @package qtype_opaque
+ * @package qtype_webwork_opaque
  * @copyright 2021 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -42,7 +42,7 @@ class local_systemcheck_remote extends \local_systemcheck\remote_check {
     }
 
     public function get_id(): string {
-        return 'qtype_opaque_engine_' . $this->engineid;
+        return 'qtype_webwork_opaque_engine_' . $this->engineid;
     }
 
     public function get_name(): string {
@@ -51,7 +51,7 @@ class local_systemcheck_remote extends \local_systemcheck\remote_check {
 
     public static function get_checks(): array {
         $checks = [];
-        $enginemanager = \qtype_opaque_engine_manager::get();
+        $enginemanager = \qtype_webwork_opaque_engine_manager::get();
 
         foreach ($enginemanager->choices() as $engineid => $enginename) {
             $checks[] = new self($engineid, $enginename);
@@ -60,7 +60,7 @@ class local_systemcheck_remote extends \local_systemcheck\remote_check {
     }
 
     public function execute(): remote_check_result {
-        $enginemanager = \qtype_opaque_engine_manager::get();
+        $enginemanager = \qtype_webwork_opaque_engine_manager::get();
         $engine = $enginemanager->load($this->engineid);
         // Remote check needs to fail quickly if it is going to fail, so reduce the timeout.
         $engine->timeout = min($engine->timeout, 2);

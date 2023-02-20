@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace qtype_opaque;
+namespace qtype_webwork_opaque;
 
 use stdClass;
 
@@ -43,7 +43,7 @@ require_once($CFG->dirroot . '/question/format/xml/format.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @group qtype_webwork_opaque
  */
-class qtype_webwork_opaque_engine_manager_mock extends \qtype_opaque_engine_manager {
+class qtype_webwork_opaque_engine_manager_mock extends \qtype_webwork_opaque_engine_manager {
     protected $knownengines = array();
 
     public function add_test_engine($id, $engine) {

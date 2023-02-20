@@ -226,13 +226,13 @@ class qtype_webwork_opaque_soap_client_with_logging extends qtype_webwork_opaque
 
     protected function __write_to_log($message) { // @codingStandardsIgnoreLine
         global $CFG;
-        file_put_contents($CFG->dataroot . '/temp/opaquelog.txt', $message . "\n",
+        file_put_contents($CFG->dataroot . '/temp/webworkopaquelog.txt', $message . "\n",
                 FILE_APPEND | LOCK_EX);
     }
 
     protected function __write_to_short_log($message) { // @codingStandardsIgnoreLine
         global $CFG;
-        file_put_contents($CFG->dataroot . '/temp/opaqueshortlog.txt', $message . "\n",
+        file_put_contents($CFG->dataroot . '/temp/webworkopaqueshortlog.txt', $message . "\n",
                 FILE_APPEND | LOCK_EX);
     }
 

@@ -9,6 +9,7 @@ define("qtype_webwork_opaque/Base64", ["jquery"], function(a) {
     var b = {
         init: function init() {
 			M.qtype = M.qtype || {};
+			M.qtype.webwork = M.qtype.webwork || {};
 			M.qtype.webwork.opaque = M.qtype.webwork.opaque || {};
 			M.qtype.webwork.opaque.Base64 = {
 

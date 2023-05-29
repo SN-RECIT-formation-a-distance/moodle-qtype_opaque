@@ -24,7 +24,7 @@
 
 //defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2023010101;
+$plugin->version   = 2023010102;
 $plugin->requires  = 2021051700;
 $plugin->component = 'qtype_webwork_opaque';
 $plugin->maturity  = MATURITY_BETA;

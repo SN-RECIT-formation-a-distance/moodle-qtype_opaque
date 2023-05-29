@@ -49,3 +49,18 @@ body.gecko .que.webwork_opaque input.questionflagimage:focus {
     outline: 1px dotted;
 }
 
+.section-li {list-style: none}          
+.section-li > div {padding:0 .5em;}     
+.section-li > h3 > .ui-icon {
+  display: inline-block;                
+  margin: 3px 1px;                     
+  vertical-align: -5px;
+}
+
+.canshow   {background:yellow;}
+.iscorrect {background:lightgreen;}
+
+/*.cannotshow {background:#e66; }*/
+/*.iswrong {background-color:red;}*/
+/*.notanswered {}*/
+/*.isclosed{ {background-color: #000; display:none;}*/

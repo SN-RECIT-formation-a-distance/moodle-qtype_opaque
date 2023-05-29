@@ -30,7 +30,7 @@
  */
 abstract class qtype_webwork_opaque_test_config {
     public static function is_test_config_available() {
-        return defined('QTYPE_webwork_opaque_TEST_ENGINE_QE');
+        return defined('QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_QE');
     }
 
     /**
@@ -47,17 +47,17 @@ abstract class qtype_webwork_opaque_test_config {
                     'and skip the test in an appropriate way if it returns false.');
         }
 
-        if (!defined('QTYPE_webwork_opaque_TEST_ENGINE_QE')) {
+        if (!defined('QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_QE')) {
             return null;
         }
         $engine = new stdClass();
         $engine->name = 'webwork_opaque engine for tests';
-        $engine->passkey = defined('QTYPE_webwork_opaque_TEST_ENGINE_PASSKEY') ? QTYPE_webwork_opaque_TEST_ENGINE_PASSKEY : '';
-        $engine->timeout = defined('QTYPE_webwork_opaque_TEST_ENGINE_TIMEOUT') ? QTYPE_webwork_opaque_TEST_ENGINE_TIMEOUT : 10;
-        $engine->questionengines = array(QTYPE_webwork_opaque_TEST_ENGINE_QE);
+        $engine->passkey = defined('QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_PASSKEY') ? QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_PASSKEY : '';
+        $engine->timeout = defined('QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_TIMEOUT') ? QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_TIMEOUT : 10;
+        $engine->questionengines = array(QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_QE);
         $engine->questionbanks = array();
-        if (defined('QTYPE_webwork_opaque_TEST_ENGINE_TN')) {
-            $engine->questionbanks[] = QTYPE_webwork_opaque_TEST_ENGINE_TN;
+        if (defined('QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_TN')) {
+            $engine->questionbanks[] = QTYPE_WEBWORK_OPAQUE_TEST_ENGINE_TN;
         }
         return qtype_webwork_opaque_engine_manager::get()->save($engine);
     }

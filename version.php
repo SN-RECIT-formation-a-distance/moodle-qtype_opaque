@@ -24,11 +24,11 @@
 
 //defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2023010102;
+$plugin->version   = 2023010103;
 $plugin->requires  = 2021051700;
 $plugin->component = 'qtype_webwork_opaque';
 $plugin->maturity  = MATURITY_BETA;
-$plugin->release   = '1.1.0-beta';
+$plugin->release   = '1.1.1-beta';
 
 $plugin->dependencies = array(
     'qbehaviour_webwork_opaque' => 2023010100,

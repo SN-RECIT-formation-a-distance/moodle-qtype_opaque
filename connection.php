@@ -172,7 +172,7 @@ class qtype_webwork_opaque_soap_client_with_timeout extends SoapClient {
      * (non-PHPdoc)
      * @see SoapClient::__doRequest()
      */
-    public function __doRequest($request, $location, $action, $version, $oneway = false) { // @codingStandardsIgnoreLine
+    public function __doRequest($request, $location, $action, $version, $oneway = false): ?string { // @codingStandardsIgnoreLine
 
         $headers = $this->headers;
         if ($action) {
@@ -210,7 +210,7 @@ class qtype_webwork_opaque_soap_client_with_logging extends qtype_webwork_opaque
      * (non-PHPdoc)
      * @see SoapClient::__soapCall()
      */
-    public function __call($function, $arguments) {
+    public function __call(string $function, array $arguments): mixed {
         $this->__log_arguments($function, $arguments);
         $timenow = microtime(true);
 
